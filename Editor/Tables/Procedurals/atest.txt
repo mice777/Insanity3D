@@ -1,0 +1,11 @@
+Class TEXTURE
+texture_size_bits 6
+life_len 1800 2200
+create_time 100 120
+true_color
+init_radius 0.100
+radius_grow 0.300
+shift_speed 0.300
+wave_repeat 2.000
+unit_scale 0.600
+height_curve 0.000

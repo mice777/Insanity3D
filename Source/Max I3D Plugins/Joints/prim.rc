@@ -1,0 +1,142 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_NEWJOINT DIALOG DISCARDABLE  0, 0, 108, 54
+STYLE WS_CHILD | WS_VISIBLE
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "",IDC_BONE_WIDTH,"CustEdit",WS_TABSTOP,46,4,34,10
+    CONTROL         "",IDC_BONE_LENGTH,"CustEdit",WS_TABSTOP,46,17,34,10
+    CONTROL         "",IDC_BONE_WIDTHSPIN,"SpinnerControl",0x0,82,4,7,10
+    RTEXT           "Width:",IDC_STATIC,18,6,26,8
+    CONTROL         "",IDC_BONE_LENGTHSPIN,"SpinnerControl",0x0,82,17,7,10
+    RTEXT           "Length:",IDC_STATIC,18,18,26,8
+    CONTROL         "Refine",IDC_BONE_REFINE,"CustButton",WS_TABSTOP,23,33,
+                    58,12
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_NEWJOINT, DIALOG
+    BEGIN
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 104
+        TOPMARGIN, 4
+        BOTTOMMARGIN, 49
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_CROSS_HAIR          CURSOR  DISCARDABLE     "crosshr1.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_DS_CREATE           "Create"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_BONE_WIDTH          "Width"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_BONE_HEIGHT         "Height"
+    IDS_BONE_TAPER          "Taper"
+    IDS_BONE_LENGTH         "Length"
+    IDS_BONE_SIDEFINS       "Side Fins"
+    IDS_BONE_SF_SIZE        "Side Fins Size"
+    IDS_BONE_SF_STARTTAPER  "Side Fins Start Taper"
+    IDS_BONE_SF_ENDTAPER    "Side Fins End Taper"
+    IDS_BONE_FRONTFIN       "Front Fin"
+    IDS_BONE_FF_SIZE        "Front Fin Size"
+    IDS_BONE_FF_STARTTAPER  "Front Fin Start Taper"
+    IDS_BONE_FF_ENDTAPER    "Front Fin End Taper"
+    IDS_BONE_BACKFIN        "Back Fin"
+    IDS_BONE_BF_SIZE        "Back Fin Size"
+    IDS_BONE_BF_STARTTAPER  "Back Fin Start Taper"
+    IDS_BONE_BF_ENDTAPER    "Back Fin End Taper"
+    IDS_BONE_GENMAP         "Generate Mapping Coords."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_RB_BONEPARAMS       "Joint Display"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+

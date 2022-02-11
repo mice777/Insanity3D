@@ -1,0 +1,20 @@
+Insanity3D libraries have following dependency hierarchy:
+
+Libraries:
+Baselib
+ZLib
+DtaRead: ZLib
+Script
+IGraph2
+I3D2
+Physics	
+Insanity
+IEditor
+
+DLLs:
+IExcpt(iexcpt.dll): DtaRead
+Debugmem(DebugMem.dll): DtaRead, IExcpt
+Config(Config.dll): Baselib, DtaRead, Insanity
+Tabler2(dll): DtaRead, Insanity
+EditCtrl(dll): Baselib, DtaRead, Debugmem
+ISnd2(dll): DtaRead, IExcpt, Debug

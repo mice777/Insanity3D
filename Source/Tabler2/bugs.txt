@@ -1,0 +1,4 @@
+15.9.1998:
+   TE_ARRAY - need index of next variable, otherwise it loops forever
+   solution:
+      make it auto-detect the required index

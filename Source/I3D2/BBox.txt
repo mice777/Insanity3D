@@ -1,0 +1,61 @@
+
+
+Bounding box as used in Insanity system.
+
+//----------------------------
+
+Corner indicies:
+       _________
+      /|6      /|7
+     / |      / |
+    /________/  |
+   |2       |3  |
+   |   |    |   |
+   |   |___ | __|
+   |  / 4   |  / 5
+   | /      | /
+   |/_______|/
+    0        1
+
+In other words:
+   X = bit0, Y = bit1, Z = bit2 in 3-bit index.
+
+//----------------------------
+
+Edge indicies:
+
+       _____3___
+      /|       /|
+    10 |     11 |
+    /____1___/  |
+   |        |   7
+   |   6    5   |
+   4   |_2_ | __|
+   |  /     |  /
+   | 8      | 9
+   |/___0___|/
+         
+
+In other words:
+   - first comes X-aligned group of edges, followed by Y and Z
+   - in each group, first come edges closer to negative X, Y or Z axis, in this order
+
+//----------------------------
+
+Side indicies:
+
+       __|______
+      /| |     /|
+     / | 3    / |
+    /______/_/  |
+   |      5 |   |
+  -|-0      | 1-|-
+   |   4 __ | __|
+   |        |  /
+   | /   2  | /
+   |/____|__|/
+         |
+
+In other words:
+   - first comes X-axis, followed by Y and Z
+   - in each axis, first come negative-pointing side, then positive-pointing one

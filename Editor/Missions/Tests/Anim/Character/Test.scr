@@ -1,0 +1,5 @@
+
+void Main(){
+   //SetAnimation("Test\move_stay_run_f");
+   SetAnimation("Human\Run");
+}

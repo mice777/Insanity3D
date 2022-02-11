@@ -1,0 +1,470 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include <windows.h>
+#include <commctrl.h>
+#include "constant.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON3               ICON    DISCARDABLE     "ICON2.ICO"
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.K.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+MENU_CONTEXT MENU DISCARDABLE 
+BEGIN
+    POPUP ""
+    BEGIN
+        POPUP "&File"
+        BEGIN
+            MENUITEM "&Open",                       ID_FILE_OPEN
+            MENUITEM "&Save",                       ID_FILE_SAVE
+            MENUITEM "Save &As",                    ID_FILE_SAVEAS
+            MENUITEM SEPARATOR
+            MENUITEM "E&xit",                       ID_FILE_EXIT
+        END
+        POPUP "&Edit"
+        BEGIN
+            MENUITEM "Cu&t",                        ID_EDIT_CUT
+            MENUITEM "&Copy",                       ID_EDIT_COPY
+            MENUITEM "&Paste",                      ID_EDIT_PASTE
+            MENUITEM SEPARATOR
+            MENUITEM "Delete &Line",                ID_EDIT_DELETELINE
+            MENUITEM "&Duplicate Line",             ID_EDIT_DUPLICATELINE
+            MENUITEM "Delete to end of line",       ID_EDIT_DELTOEOL
+            MENUITEM SEPARATOR
+            MENUITEM "&Undo",                       ID_EDIT_UNDO
+            MENUITEM "&Redo",                       ID_EDIT_REDO
+            MENUITEM SEPARATOR
+            MENUITEM "&Font",                       ID_OPTIONS_FONT
+            MENUITEM "C&olors",                     ID_OPTIONS_COLORS
+            MENUITEM "Co&nfiguration",              ID_OPTIONS_CONFIG
+        END
+        POPUP "&Search"
+        BEGIN
+            MENUITEM "&Find",                       ID_SEARCH_FIND
+            MENUITEM "Find and &Replace",           ID_SEARCH_FINDANDREPLACE
+            MENUITEM "Repe&at Find/Replace",        ID_SEARCH_REPEATFINDREPLACE
+
+            MENUITEM SEPARATOR
+            MENUITEM "Go to &Line",                 ID_SEARCH_GOTOLINE
+            MENUITEM "Go to &Column",               ID_SEARCH_GOTOCOLUMN
+        END
+        POPUP "&Block"
+        BEGIN
+            MENUITEM "Mark &Line",                  ID_BLOCK_MARKLINE
+            MENUITEM "Mark &Column",                ID_BLOCK_MARKCOLUMN
+            MENUITEM "&Unmark",                     ID_BLOCK_UNMARK
+            MENUITEM SEPARATOR
+            MENUITEM "&Delete",                     ID_BLOCK_DELETE
+        END
+        MENUITEM SEPARATOR
+        POPUP "&Help"
+        BEGIN
+            MENUITEM "&About",                      ID_HELP_ABOUT
+        END
+    END
+END
+
+MENU_EDIT_CTRL MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Open",                       ID_FILE_OPEN
+        MENUITEM "&Save",                       ID_FILE_SAVE
+        MENUITEM "Save &As",                    ID_FILE_SAVEAS
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_FILE_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "Cu&t",                        ID_EDIT_CUT
+        MENUITEM "&Copy",                       ID_EDIT_COPY
+        MENUITEM "&Paste",                      ID_EDIT_PASTE
+        MENUITEM SEPARATOR
+        MENUITEM "Delete &Line",                ID_EDIT_DELETELINE
+        MENUITEM "&Duplicate Line",             ID_EDIT_DUPLICATELINE
+        MENUITEM "&Undo",                       ID_EDIT_UNDO
+        MENUITEM "&Redo",                       ID_EDIT_REDO
+        MENUITEM SEPARATOR
+        MENUITEM "&Font",                       ID_OPTIONS_FONT
+        MENUITEM "C&olors",                     ID_OPTIONS_COLORS
+        MENUITEM "Co&nfiguration",              ID_OPTIONS_CONFIG
+    END
+    POPUP "&Search"
+    BEGIN
+        MENUITEM "&Find",                       ID_SEARCH_FIND
+        MENUITEM "Find and &Replace",           ID_SEARCH_FINDANDREPLACE
+        MENUITEM "Repe&at Find/Replace",        ID_SEARCH_REPEATFINDREPLACE
+        MENUITEM SEPARATOR
+        MENUITEM "Go to &Line",                 ID_SEARCH_GOTOLINE
+        MENUITEM "Go to &Column",               ID_SEARCH_GOTOCOLUMN
+    END
+    POPUP "&Block"
+    BEGIN
+        MENUITEM "Mark &Line",                  ID_BLOCK_MARKLINE
+        MENUITEM "Mark &Column",                ID_BLOCK_MARKCOLUMN
+        MENUITEM "&Unmark",                     ID_BLOCK_UNMARK
+        MENUITEM SEPARATOR
+        MENUITEM "&Delete",                     ID_BLOCK_DELETE
+    END
+    MENUITEM SEPARATOR
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About",                      ID_HELP_ABOUT
+    END
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include <windows.h>\r\n"
+    "#include <commctrl.h>\r\n"
+    "#include ""constant.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG_GOTOLINE DIALOGEX 0, 0, 103, 23
+STYLE DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_POPUP | WS_VISIBLE | 
+    WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Go to line"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT1,6,4,89,12,ES_NUMBER
+END
+
+IDD_DIALOG_GOTOCOLUMN DIALOGEX 0, 0, 103, 23
+STYLE DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_POPUP | WS_VISIBLE | 
+    WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Go to column"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT1,6,4,89,12,ES_NUMBER
+END
+
+IDD_DIALOG_RPROMPT DIALOGEX 0, 0, 182, 25
+STYLE DS_MODALFRAME | DS_3DLOOK | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Replace string?"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "&Yes",IDOK,5,6,40,14
+    PUSHBUTTON      "&No",IDNO,49,6,40,14
+    PUSHBUTTON      "&Cancel",IDCANCEL,93,6,40,14
+    PUSHBUTTON      "&All",ID_ALL,137,6,40,14
+END
+
+IDD_DIALOG_FINDREPLACE DIALOGEX 0, 0, 156, 100
+STYLE DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_POPUP | WS_VISIBLE | 
+    WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Find"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT1,5,5,146,12
+    LTEXT           "Replace by:",IDC_STATIC,5,20,39,8
+    EDITTEXT        IDC_EDIT2,5,30,146,12
+    GROUPBOX        "Options",IDC_STATIC,5,45,146,50
+    CONTROL         "&Whole words",IDC_CHECK_WHOLE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,16,57,57,10
+    CONTROL         "&Global",IDC_CHECK_GLOBAL,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,16,69,36,10
+    CONTROL         "&No prompt",IDC_CHECK_NOPROMPT,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,16,81,49,10
+    CONTROL         "Respect &Case",IDC_CHECK_RESPECTCASE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,83,57,61,10
+    CONTROL         "&Backward",IDC_CHECK_BACK,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,83,70,48,10
+    GROUPBOX        "Options",IDC_STATIC,5,45,146,50
+END
+
+IDD_DIALOG_CONFIG DIALOG DISCARDABLE  0, 0, 186, 210
+STYLE DS_MODALFRAME | DS_3DLOOK | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "HighWare Configuration"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "",IDC_STATIC,4,4,178,92
+    LTEXT           "&Tab",IDC_STATIC,9,15,14,8
+    EDITTEXT        IDC_EDIT_TABWIDTH,26,13,27,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "&String",IDC_STATIC,55,15,19,8
+    EDITTEXT        IDC_EDIT_STRING,75,13,27,12,ES_AUTOHSCROLL
+    LTEXT           "&Eol comment",IDC_STATIC,106,15,42,8
+    EDITTEXT        IDC_EDIT_EOLCOMMENT,149,13,27,12,ES_AUTOHSCROLL
+    LTEXT           "Comment &start",IDC_STATIC,9,31,46,8
+    EDITTEXT        IDC_EDIT_COMMENTSTART,60,29,27,12,ES_AUTOHSCROLL
+    LTEXT           "Comment e&nd",IDC_STATIC,101,30,44,8
+    EDITTEXT        IDC_EDIT_COMMENTEND,149,28,27,12,ES_AUTOHSCROLL
+    LTEXT           "S&ymbols",IDC_STATIC,9,48,27,8
+    EDITTEXT        IDC_EDIT_SYMBOLS,39,46,137,12,ES_AUTOHSCROLL
+    LTEXT           "&Literal",IDC_STATIC,9,67,20,8
+    EDITTEXT        IDC_EDIT_LITERAL,33,65,22,12
+    LTEXT           "Current line &highlight [1-200%]",IDC_STATIC,57,67,94,8
+    EDITTEXT        IDC_EDIT_LINEHIGHL,154,65,22,12,ES_NUMBER
+    CONTROL         "&Underline cursor",IDC_CHECK_CURSORUNDER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,82,66,10
+    GROUPBOX        "",IDC_STATIC,4,98,178,90
+    LTEXT           "&Keyword",IDC_STATIC,11,109,28,8
+    EDITTEXT        IDC_EDIT_KEYWORD,44,107,68,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "&Add",IDC_BUTTON_ADD,117,107,27,12,WS_DISABLED
+    PUSHBUTTON      "&Delete",IDC_BUTTON_DELETE,149,107,27,12,WS_DISABLED
+    LTEXT           "&Group",IDC_STATIC,11,127,20,8
+    COMBOBOX        IDC_RESERVED_TYPES,11,140,52,65,CBS_DROPDOWNLIST | 
+                    WS_TABSTOP
+    LISTBOX         IDC_LIST_KEYWORDS1,75,132,97,52,LBS_SORT | NOT 
+                    WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "OK",IDOK,34,192,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,100,192,50,14
+    LISTBOX         IDC_LIST_KEYWORDS2,75,132,97,52,LBS_SORT | NOT 
+                    WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LIST_KEYWORDS3,75,132,97,52,LBS_SORT | NOT 
+                    WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_LIST_KEYWORDS4,75,132,97,52,LBS_SORT | NOT 
+                    WS_VISIBLE | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_DIALOG_COLORS DIALOG DISCARDABLE  0, 0, 203, 124
+STYLE DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "HighWare Color configuration"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "",IDC_STATIC,5,2,193,99
+    LTEXT           "&Item:",IDC_STATIC,11,10,16,8
+    LISTBOX         IDC_LIST1,11,22,77,73,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "&Foreground:",IDC_STATIC,94,10,39,8
+    COMBOBOX        IDC_COMBO_COLOR_FORE,94,20,55,100,CBS_DROPDOWNLIST | 
+                    CBS_OWNERDRAWFIXED | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "Edit",ID_COLOR_EDIT_FORE,154,19,38,12
+    LTEXT           "&Background:",IDC_STATIC,94,39,42,8
+    COMBOBOX        IDC_COMBO_COLOR_BACK,94,50,55,100,CBS_DROPDOWNLIST | 
+                    CBS_OWNERDRAWFIXED | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "Edit",ID_COLOR_EDIT_BACK,154,50,38,12
+    GROUPBOX        "Sample:",IDC_STATIC,95,70,97,25
+    CTEXT           "AXY axy +-*/",IDC_STATIC_SAMPLE,100,80,87,13,WS_BORDER | 
+                    NOT WS_GROUP
+    DEFPUSHBUTTON   "OK",IDOK,12,105,50,14
+    PUSHBUTTON      "&Cancel",IDCANCEL,78,105,50,14
+    PUSHBUTTON      "&Apply",IDAPPLY,142,105,50,14
+END
+
+IDD_DIALOG_COMP_ERR DIALOG DISCARDABLE  0, 0, 187, 161
+STYLE DS_MODALFRAME | DS_3DLOOK | DS_CENTERMOUSE | WS_POPUP | WS_CAPTION
+CAPTION "HighWare macro compiler"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,68,140,50,14,WS_DISABLED
+    LISTBOX         IDC_LIST1,7,28,173,106,LBS_NOINTEGRALHEIGHT | LBS_NOSEL | 
+                    WS_VSCROLL | WS_HSCROLL
+    LTEXT           "Compile errors:",IDC_STATIC,7,18,47,8
+    CONTROL         "",IDC_STATIC_MAC_FILE,"Static",SS_LEFTNOWORDWRAP | 
+                    WS_GROUP,24,7,156,8
+    LTEXT           "File:",IDC_STATIC,7,7,14,8
+END
+
+IDD_DIALOG_ABOUT DIALOG DISCARDABLE  0, 0, 126, 68
+STYLE DS_MODALFRAME | DS_3DLOOK | WS_POPUP | WS_CAPTION
+CAPTION "HighWare Text Editor"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,37,49,50,14
+    LTEXT           "Copyright (c) 1999 Michal Bacik",IDC_STATIC,12,31,101,8
+    LTEXT           "Version 2.00",IDC_STATIC,42,5,40,8
+    LTEXT           "Release date: 25 october 1999",IDC_STATIC,13,18,99,8
+END
+
+IDD_DIALOG_FIND DIALOGEX 0, 0, 156, 62
+STYLE DS_MODALFRAME | DS_3DLOOK | DS_CENTER | WS_POPUP | WS_VISIBLE | 
+    WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Find"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT1,5,5,146,12
+    GROUPBOX        "Options",IDC_STATIC,5,21,146,36
+    CONTROL         "&Whole words",IDC_CHECK_WHOLE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,19,30,57,10
+    CONTROL         "&Global",IDC_CHECK_GLOBAL,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,19,43,36,10
+    CONTROL         "Respect &Case",IDC_CHECK_RESPECTCASE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,85,30,61,10
+    CONTROL         "&Backward",IDC_CHECK_BACK,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,85,43,48,10
+END
+
+IDD_EDIT_CONTROL DIALOG DISCARDABLE  0, 0, 188, 161
+STYLE DS_3DLOOK | DS_CENTERMOUSE | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | 
+    WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "HighWare editor"
+MENU MENU_EDIT_CTRL
+FONT 8, "MS Sans Serif"
+BEGIN
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    "IDD_DIALOG_GOTOLINE", DIALOG
+    BEGIN
+        RIGHTMARGIN, 102
+        BOTTOMMARGIN, 19
+    END
+
+    "IDD_DIALOG_GOTOCOLUMN", DIALOG
+    BEGIN
+        RIGHTMARGIN, 102
+        BOTTOMMARGIN, 19
+    END
+
+    "IDD_DIALOG_RPROMPT", DIALOG
+    BEGIN
+        LEFTMARGIN, 5
+        RIGHTMARGIN, 177
+        TOPMARGIN, 5
+        BOTTOMMARGIN, 20
+    END
+
+    "IDD_DIALOG_FINDREPLACE", DIALOG
+    BEGIN
+        LEFTMARGIN, 5
+        RIGHTMARGIN, 151
+        TOPMARGIN, 5
+        BOTTOMMARGIN, 95
+    END
+
+    "IDD_DIALOG_CONFIG", DIALOG
+    BEGIN
+        LEFTMARGIN, 4
+        RIGHTMARGIN, 182
+        TOPMARGIN, 4
+        BOTTOMMARGIN, 206
+    END
+
+    "IDD_DIALOG_COLORS", DIALOG
+    BEGIN
+        LEFTMARGIN, 5
+        RIGHTMARGIN, 198
+        TOPMARGIN, 5
+        BOTTOMMARGIN, 119
+    END
+
+    "IDD_DIALOG_COMP_ERR", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 154
+    END
+
+    "IDD_DIALOG_ABOUT", DIALOG
+    BEGIN
+        LEFTMARGIN, 5
+        RIGHTMARGIN, 121
+        TOPMARGIN, 5
+        BOTTOMMARGIN, 63
+    END
+
+    "IDD_DIALOG_FIND", DIALOG
+    BEGIN
+        LEFTMARGIN, 5
+        RIGHTMARGIN, 151
+        TOPMARGIN, 5
+        BOTTOMMARGIN, 57
+    END
+
+    "IDD_EDIT_CONTROL", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 181
+        TOPMARGIN, 5
+        BOTTOMMARGIN, 154
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.K.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

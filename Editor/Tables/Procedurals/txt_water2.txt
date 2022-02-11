@@ -1,0 +1,68 @@
+; Procedural for texture.
+
+Class TEXTURE
+
+;----------------------------
+; Algorithm: this procedural creates growing circles (elements) on random locations of texture,
+; which have sine-waves from center to border. Each circle has a life length, during which
+; it grows and later falls down. Circle has also movement of waves from its center
+; to borders. The overall intensity of circle also decreases with increasing distance from center
+; and is near zero at borders.
+; Multiple overlapping circles form interesting effects, where their waves are blended together
+; and value is applied either as diffuse (gray) color, alpha channel, or bump-map DuDv.
+; Resulting values are signed, which means that zero is gray, or half opacity, or no bump.
+
+
+; mode, may be one of following: RGB, ALPHA, RGBA, BUMP
+; if BUMP is specified, it may silently switch to ALPHA if bumpmapping is not supported
+;mode RGB
+
+; how big is the texture - bit value used in formula 2^n for calculating texture size
+texture_size_bits 5
+
+; length of element's life - min and max values
+life_len 800 1800
+
+; counter after which new element is created - min and max values
+create_time 10 120
+
+; specify this if true-color texture is required
+true_color
+
+; init radius of element, specified as ratio to texture size (1.0 means as big as texture)
+init_radius .2
+
+; growing of radius per second, specified as ratio to texture size (1.0 means as big as texture)
+radius_grow .3
+
+; speed of wave shifting - waves per second - negative value causes shifting inwards
+shift_speed .2
+
+; how many times wave is repeat from center to border of element
+wave_repeat 3.0
+
+; how to scale resulting value before writing to texture, 1.0 means normal scale
+; when circles overlap, values may become greater than min/max values, and are clamped,
+; so this is a scale used before the clamp
+; smaller value produces nicer blend, but of lower overall intensity
+; greater value makes texture look monochromatic, with greater contrast
+unit_scale .6
+
+; height curve accross the life-time of element - specifying change of power of element
+; when close to zero, a sine of half circle is used (fast attack, late decay)
+; when close to one, the curve is opposite (slow attack, fast decay)
+height_curve 0.0
+
+; when set, it behaves interactively, taking values from driver in following manner:
+; texture_size_bits = int[0]
+; life_len = int[1], int[2]
+; create_time = int[3], int[4]
+; true_color = int[5]
+; init_radius = float[0]
+; radius_grow = float[1]
+; shift_speed = float[2]
+; wave_repeat = float[3]
+; unit_scale = float[4]
+; height_curve = float[5]
+;debug_mode
+

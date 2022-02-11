@@ -1,0 +1,114 @@
+
+char
+char: character type (8-bit signed)
+
+byte
+byte: character type (8-bit unsigned)
+
+short
+short: integral type (16-bit signed)
+
+word
+word: integral type (16-bit unsigned)
+
+int
+int: integral type (32-bit signed)
+
+const
+const: variable modifier specifying that variable is constant
+Example: const int variable = 20;
+
+dword
+dword: integral type (32-bit unsigned)
+
+float
+float: floating-point type
+
+bool
+bool: boolean type (for logical expression - holding true or false values)
+
+true
+true: value used with boolean type,
+specifying that logical condition is positive
+
+false
+false: value used with boolean type,
+specifying that logical condition is negative
+
+void
+void: type specifying that function returns no parameters
+
+string
+string: string type (quoted string)
+
+//----------------------------
+for
+for: statement for executing following statement repeatedly
+Syntax:
+for( <variable setup> ; <condition> ; <variable update> ){ statement }
+<variable setup> is place for setting up variables, for example: i=0
+<condition> is place for conditional expression, when this becomes false,
+   repeating of statement is finished, for example: i<10
+<variable update> is place for updating variable after iteration, example: i++
+Example of usage:
+for(i = 0; i < 25; i++){
+   Print("Abc");
+}
+
+//----------------------------
+while
+while: statement for executing following statement repeatedly
+Syntax:
+while( <condition> ){ statement }
+or:
+do{ statement }while( <condition> );
+<condition> is place for conditional expression, when this becomes false,
+   repeating of statement is finished, for example: i<10
+Example of usage:
+while(i < num_items){
+   Print("Abc");
+}
+
+//----------------------------
+table
+keyword: table
+Used for definition of table template and variables. Single table per file is allowed.
+Syntax:
+table "TableName"{
+   ... (table variables)
+}
+
+//----------------------------
+if
+keyword: if
+Conditional expression.
+Syntax:
+if(expression) statement
+if(expression){ statement }
+expression is a conditional expression; when it results to true,
+the statement is executed
+
+//----------------------------
+return
+keyword: return
+Statement causing termination of function.
+Suntax:
+   return;  terminate function without returning value
+   return <n>;  terminate function with returning value n
+
+//----------------------------
+branch
+keyword: branch
+Used inside of table declaration to create branches.
+Syntax:
+branch "Description" ["TypeDesc"]{
+   ... (variables)
+}
+branch[n] "Description" ["TypeDesc"]{
+   ... (variables)
+}
+
+//----------------------------
+// Note for programmers: do not put function help here, use common.i !!!
+// Only help for keywords not appearing in common.h should be here.
+//----------------------------

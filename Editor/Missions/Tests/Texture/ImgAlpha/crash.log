@@ -1,0 +1,8 @@
+Machine: MIKE
+Date: 7-4-2002 16:55
+Memory leaks detected - 3 block(s), 864 bytes
+Allocation IDs: 1701, 1743, 2205
+
+Execution path:
+Module: debugmem.dll
+     <unknown function>

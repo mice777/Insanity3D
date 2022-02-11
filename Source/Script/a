@@ -1,0 +1,1682 @@
+
+  switch (yyn) {
+
+case 1:
+#line 45 "c_gram.cpp"
+{
+                              //find symbol in namespace
+      const C_c_type &idn = yyscope.FindIdentifier(yy_sval_stack[0]->GetName());
+      if(idn){
+                              //found identifier by its name
+         yyval = idn;
+         if(idn->GetType()==TS_LITERAL)
+            yyval->SetType(TS_STRING);
+      }else{
+         ERROR(C_fstr(ERR_NOTDECLARED, (const char*)yy_sval_stack[0]->GetName()));
+         RESET_CURRENT
+                              //try avoid futher error messages, create this identifier as int variable
+         yyval->SetType(TS_INT);
+         yyval->SetName(yy_sval_stack[0]->GetName());
+         yyscope.AddIdentifier(yyval);
+      }
+   ;
+    break;}
+case 3:
+#line 64 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      yyval->SetType(TS_BOOL);
+      yyval->AddTypeFlags(TYPE_CONST);
+      yyval->SetValue(1);
+   ;
+    break;}
+case 4:
+#line 71 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      yyval->SetType(TS_BOOL);
+      yyval->AddTypeFlags(TYPE_CONST);
+      yyval->SetValue(0);
+   ;
+    break;}
+case 5:
+#line 78 "c_gram.cpp"
+{
+      //RESET_CURRENT
+      yyval = yy_sval_stack[0];
+      yyval->SetType(TS_LITERAL);
+   ;
+    break;}
+case 6:
+#line 84 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-1];
+   ;
+    break;}
+case 7:
+#line 91 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[0];
+      if(yyval->GetType()==TS_LITERAL){
+                              //instantiate literal
+         yyval->SetTypeFlags(TYPE_CONST);
+
+         const C_str &str = yy_sval_stack[0]->GetName();
+         C_compile_process::t_string_pool::const_iterator it_pool = compile_process.string_pool.find(str);
+         dword offset;
+
+         if(it_pool==compile_process.string_pool.end()){
+                              //store this string to the segment
+            C_vector<byte> &seg = tmp_code;
+            seg.push_back(OP_STRING);
+                                 //instantiate string in const segment
+            offset = seg.size();
+            if(str.Size()){
+               seg.insert(seg.end(), (byte*)(const char*)str, ((byte*)(const char*)str)+str.Size()+1);
+            }else
+               seg.push_back(0);
+                              //store into the pool
+            compile_process.string_pool[str] = offset;
+         }else{
+                              //re-use existing string
+            offset = it_pool->second;
+         }
+         yyval->SetValue(offset);
+                                 //clear name, no more needed
+         yy_sval_stack[0]->SetName(NULL);
+      }
+   ;
+    break;}
+case 8:
+#line 123 "c_gram.cpp"
+{
+                              //make copy, since this operation changes the yyval
+      RESET_CURRENT;
+      yyval->CopyType(yy_sval_stack[-3]);
+      if(!yyval->codeSubscript(yy_sval_stack[-1], str)){
+         ERROR(str);
+      }
+   ;
+    break;}
+case 9:
+#line 132 "c_gram.cpp"
+{                          //function call without params
+      RESET_CURRENT;
+      if(!yyval->MakeFunctionCall(yy_sval_stack[-2], NULL, NULL, str, tmp_code)){
+         ERROR(str);
+         MSG(C_fstr("   declaration: %s", (const char*)yyval->GetFunctionDeclaration(yy_sval_stack[-2])));
+      }
+   ;
+    break;}
+case 10:
+#line 140 "c_gram.cpp"
+{                          //function call with params
+      RESET_CURRENT;
+      if(!yyval->MakeFunctionCall(yy_sval_stack[-3], &yy_sval_stack[-1]->GetList(), NULL, str, tmp_code)){
+         ERROR(str);
+         MSG(C_fstr("   declaration: %s", (const char*)yyval->GetFunctionDeclaration(yy_sval_stack[-3])));
+      }
+   ;
+    break;}
+case 11:
+#line 148 "c_gram.cpp"
+{                          //function call with params
+      RESET_CURRENT;
+      if(!yyval->MakeFunctionCall(yy_sval_stack[-3], NULL, &yy_sval_stack[-1]->GetList(), str, tmp_code)){
+         ERROR(str);
+         MSG(C_fstr("   declaration: %s", (const char*)yyval->GetFunctionDeclaration(yy_sval_stack[-3])));
+      }
+   ;
+    break;}
+case 12:
+#line 156 "c_gram.cpp"
+{
+      RESET_CURRENT;
+                              //find identifier in scructure
+      const C_str &idn_name = yy_sval_stack[0]->GetName();
+      int i;
+      for(i=yy_sval_stack[-2]->NumStructMembers(); i--; ){
+         const C_c_type &m = yy_sval_stack[-2]->StructMember(i);
+         if(m->GetName()==idn_name){
+            yyval->CopyType(m);
+            yyval->SetTypeFlags(yy_sval_stack[-2]->GetTypeFlags());
+            //yyval->SetStructOffset(m->GetStructOffset());
+            yyval->SetAddress(m->GetAddress());
+            break;
+         }
+      }
+      if(i==-1){
+         ERROR(C_fstr("'%s' is not member of '%s'", (const char*)idn_name, (const char*)yy_sval_stack[-2]->GetName()));  
+         yyval->SetType(TS_INT);
+      }
+      yyval->SetName(yy_sval_stack[-2]->GetName());
+   ;
+    break;}
+case 13:
+#line 181 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      yyval->CopyType(yy_sval_stack[-1]);
+      yyval->CopyName(yy_sval_stack[-1]);
+      if(!yyval->codePickParam(yyval, yyval->GetType(), str) ||
+         !yyval->codeIncDecOp(str, true, false, true)){
+         ERROR(str);
+      }
+   ;
+    break;}
+case 14:
+#line 191 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      yyval->CopyType(yy_sval_stack[-1]);
+      yyval->CopyName(yy_sval_stack[-1]);
+      if(!yyval->codePickParam(yyval, yyval->GetType(), str) ||
+         !yyval->codeIncDecOp(str, false, false, true)){
+         ERROR(str);
+      }
+   ;
+    break;}
+case 15:
+#line 206 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      yyval->AddToList(yy_sval_stack[0]);
+   ;
+    break;}
+case 16:
+#line 211 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-2];
+      yyval->AddToList(yy_sval_stack[0]);
+   ;
+    break;}
+case 17:
+#line 221 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      yyval->AddToList(yy_sval_stack[0]);
+   ;
+    break;}
+case 18:
+#line 226 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-2];
+                              //check if not already in list
+      for(int i=yyval->ListSize(); i--; ){
+         if(yyval->ListMember(i)->GetName() == yy_sval_stack[0]->GetName()){
+            ERROR(C_fstr("parameter '%s' already initialized", (const char*)yy_sval_stack[0]->GetName()));
+            break;
+         }
+      }
+      yyval->AddToList(yy_sval_stack[0]);
+   ;
+    break;}
+case 19:
+#line 243 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-2];
+      yyval->AddToList(yy_sval_stack[0]);
+   ;
+    break;}
+case 21:
+#line 252 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      yyval->CopyType(yy_sval_stack[0]);
+      yyval->CopyName(yy_sval_stack[0]);
+      if(!yyval->codeIncDecOp(str, true, true, false)){
+         ERROR(str);
+      }
+   ;
+    break;}
+case 22:
+#line 261 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      yyval->CopyType(yy_sval_stack[0]);
+      yyval->CopyName(yy_sval_stack[0]);
+      if(!yyval->codeIncDecOp(str, false, true, false)){
+         ERROR(str);
+      }
+   ;
+    break;}
+case 23:
+#line 270 "c_gram.cpp"
+{
+      RESET_CURRENT;
+                              //must do full copy, because of instantiation of possible code
+      yyval->CopyType(yy_sval_stack[0]);
+      yyval->SetName(yy_sval_stack[0]->GetName());
+      yyval->SetValue(yy_sval_stack[0]->GetValue());
+      //yyval = yy_sval_stack[0];
+      if(!yyval->codeUnaryOp(yy_sval_stack[-1]->GetValue(), str))
+         ERROR((str.Size() ? str : ERR_MUSTBEINT));
+   ;
+    break;}
+case 30:
+#line 305 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeAritmOp(yy_sval_stack[-2], '*', yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 31:
+#line 312 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeAritmOp(yy_sval_stack[-2], '/', yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 32:
+#line 319 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeAritmOp(yy_sval_stack[-2], '%', yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 34:
+#line 330 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeAritmOp(yy_sval_stack[-2], '+', yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 35:
+#line 337 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeAritmOp(yy_sval_stack[-2], '-', yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 37:
+#line 348 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeAritmOp(yy_sval_stack[-2], LEFT_OP, yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 38:
+#line 355 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeAritmOp(yy_sval_stack[-2], RIGHT_OP, yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 40:
+#line 366 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeBooleanOp(yy_sval_stack[-2], '<', yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 41:
+#line 373 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeBooleanOp(yy_sval_stack[-2], '>', yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 42:
+#line 380 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeBooleanOp(yy_sval_stack[-2], LE_OP, yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 43:
+#line 387 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeBooleanOp(yy_sval_stack[-2], GE_OP, yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 45:
+#line 398 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeBooleanOp(yy_sval_stack[-2], EQ_OP, yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 46:
+#line 405 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeBooleanOp(yy_sval_stack[-2], NE_OP, yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 48:
+#line 416 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeAritmOp(yy_sval_stack[-2], '&', yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 50:
+#line 427 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeAritmOp(yy_sval_stack[-2], '^', yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 52:
+#line 438 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeAritmOp(yy_sval_stack[-2], '|', yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 54:
+#line 449 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeBooleanOp(yy_sval_stack[-2], AND_OP, yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 56:
+#line 460 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeBooleanOp(yy_sval_stack[-2], OR_OP, yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_MUSTBEINT);
+      }
+   ;
+    break;}
+case 59:
+#line 478 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeAssign(yy_sval_stack[-2], yy_sval_stack[-1]->GetValue(), yy_sval_stack[0], str)){
+         ERROR(str.Size() ? (const char*)str : ERR_CANTASSIGN);
+      }
+   ;
+    break;}
+case 72:
+#line 509 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[0];
+      if(!yyval->IsConst()){
+         ERROR(ERR_MUSTBECONST);
+      }
+   ;
+    break;}
+case 73:
+#line 519 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-1];
+      if(!yyval->GetName().Size()){
+         if(yyval->GetType() != TS_ENUM_CONSTANT)
+            WARNING("an anonymous type without a declarator is useless");
+      }
+   ;
+    break;}
+case 74:
+#line 527 "c_gram.cpp"
+{
+      RESET_CURRENT;
+
+      for(dword i=0; i<yy_sval_stack[-1]->ListSize(); i++){
+         C_c_type &ct = yy_sval_stack[-1]->ListMember(i);
+         C_c_type init = ct->GetInitializer();
+         if(yy_sval_stack[-2]->IsConst()){
+            if(init){
+               if(init->IsConst()){
+                              //setup direct constant value
+                  ct->SetValue(init->GetPromoteVal(yy_sval_stack[-2]->GetType()));
+                  ct->SetInitializer(NULL);
+               }
+            }else{
+               ct->SetValue(0);
+            }
+         }
+         if(ct->GetType() == TS_FUNC){
+                              //setup return type to be type of yy_sval_stack[-2]
+            ct->SetReturnType(yy_sval_stack[-2]);
+            ct->SetTypeFlags(yy_sval_stack[-2]->GetTypeFlags());
+         }else{
+            ct->CopyType(yy_sval_stack[-2]);
+            if(ct->GetType()==TS_STRING){
+               ct->SetType(TS_LITERAL);
+               ct->AddTypeFlags(TYPE_CONST);
+               if(init){
+                  ct->SetValue(init->GetValue());
+               }else{
+                              //instantiate empty string now
+                  C_vector<byte> &seg = tmp_code;
+                  ct->SetValue(seg.size());
+                  seg.push_back(0);
+               }
+            }else
+            if((ct->GetTypeFlags()&TYPE_EXTERN) && init){
+               ERROR("cannot initialize external variable");
+            }
+         }
+         if(yy_sval_stack[-2]->GetTypeFlags()&TYPE_TYPEDEF){
+            if(ct->GetTypeFlags()&TYPE_EXTERN){
+               ERROR("typedef cannot be extern");
+            }
+                              //new type name, add to scope
+            yyscope.AddType(ct);
+         }else{
+                              //add to declaration (through list)
+            yyval->AddToList(ct);
+         }
+      }
+   ;
+    break;}
+case 75:
+#line 583 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[0];
+      if(yyval->GetTypeFlags()&yy_sval_stack[-1]->GetTypeFlags()){
+         ERROR("storage class already specified");
+      }
+      yyval->AddTypeFlags(yy_sval_stack[-1]->GetTypeFlags() & (TYPE_EXTERN | TYPE_TYPEDEF));
+   ;
+    break;}
+case 76:
+#line 591 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[0];
+      if(yyval->GetType() == TS_STRUCT){
+                              //put named structs into current scope, if not yet
+         if(yyval->GetName().Size()){
+                              //if struct not declared in scope, do it now
+            if(!yyscope.IsTypeInScope(yyval->GetName()))
+               yyscope.AddType(yyval);
+         }
+      }
+   ;
+    break;}
+case 77:
+#line 607 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[0];
+      if(yyval->GetTypeFlags()&yy_sval_stack[-1]->GetTypeFlags()){
+         ERROR("qualifier already specified");
+      }
+      yyval->AddTypeFlags(yy_sval_stack[-1]->GetTypeFlags() & TYPE_CONST);
+   ;
+    break;}
+case 78:
+#line 618 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      yyval->AddToList(yy_sval_stack[0]);
+   ;
+    break;}
+case 79:
+#line 623 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-2];
+      yyval->AddToList(yy_sval_stack[0]);
+   ;
+    break;}
+case 81:
+#line 632 "c_gram.cpp"
+{                          //set initializer as 1st list member
+      yyval = yy_sval_stack[-2];
+      yyval->SetInitializer(yy_sval_stack[0]);
+   ;
+    break;}
+case 82:
+#line 640 "c_gram.cpp"
+{ 
+      yyval = yy_sval_stack[0];
+      yyval->AddTypeFlags(TYPE_TYPEDEF);
+   ;
+    break;}
+case 83:
+#line 645 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[0];
+      yyval->AddTypeFlags(TYPE_EXTERN);
+   ;
+    break;}
+case 84:
+#line 657 "c_gram.cpp"
+{ yyval = yy_sval_stack[0]; yyval->SetType(TS_VOID); ;
+    break;}
+case 85:
+#line 658 "c_gram.cpp"
+{ yyval = yy_sval_stack[0]; yyval->SetType(TS_CHAR); ;
+    break;}
+case 86:
+#line 659 "c_gram.cpp"
+{ yyval = yy_sval_stack[0]; yyval->SetType(TS_SHORT); ;
+    break;}
+case 87:
+#line 660 "c_gram.cpp"
+{ yyval = yy_sval_stack[0]; yyval->SetType(TS_INT); ;
+    break;}
+case 88:
+#line 661 "c_gram.cpp"
+{ yyval = yy_sval_stack[0]; yyval->SetType(TS_BYTE); ;
+    break;}
+case 89:
+#line 662 "c_gram.cpp"
+{ yyval = yy_sval_stack[0]; yyval->SetType(TS_WORD); ;
+    break;}
+case 90:
+#line 663 "c_gram.cpp"
+{ yyval = yy_sval_stack[0]; yyval->SetType(TS_DWORD); ;
+    break;}
+case 91:
+#line 664 "c_gram.cpp"
+{ yyval = yy_sval_stack[0]; yyval->SetType(TS_STRING); ;
+    break;}
+case 92:
+#line 665 "c_gram.cpp"
+{ yyval = yy_sval_stack[0]; yyval->SetType(TS_BOOL); ;
+    break;}
+case 93:
+#line 669 "c_gram.cpp"
+{ yyval = yy_sval_stack[0]; yyval->SetType(TS_FLOAT); ;
+    break;}
+case 94:
+#line 675 "c_gram.cpp"
+{ yyval = yy_sval_stack[0]; yyval->SetType(TS_STRUCT); ;
+    break;}
+case 96:
+#line 678 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      yyval->CopyType(yy_sval_stack[0]);
+      yyval->ClearTypeFlags(TYPE_TYPEDEF);
+      yyval->SetParentType(yy_sval_stack[0]);
+   ;
+    break;}
+case 97:
+#line 688 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-4];
+      yyval->SetName(yy_sval_stack[-3]->GetName());
+      dword addr = 0;
+      for(dword i=0; i<yy_sval_stack[-1]->ListSize(); i++){
+         C_c_type &m = yy_sval_stack[-1]->ListMember(i);
+         m->SetAddress((short)addr);
+         yyval->AddStructMember(m);
+         addr += m->SizeOf();
+      }
+   ;
+    break;}
+case 98:
+#line 707 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      yyval->SetType(TS_STRUCT);
+   ;
+    break;}
+case 99:
+#line 718 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      yyval->CopyList(yy_sval_stack[0]);
+   ;
+    break;}
+case 100:
+#line 723 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-1];
+      for(dword i=0; i<yy_sval_stack[0]->ListSize(); i++){
+         yyval->AddToList(yy_sval_stack[0]->ListMember(i));
+      }
+   ;
+    break;}
+case 101:
+#line 734 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      for(dword i=0; i<yy_sval_stack[-1]->ListSize(); i++){
+         C_c_type &ct = yy_sval_stack[-1]->ListMember(i);
+         ct->CopyType(yy_sval_stack[-2]);
+         switch(ct->GetType()){
+         case TS_STRING:
+         case TS_STRUCT:
+            ERROR("invalid structure member type");
+            ct->SetType(TS_INT);
+            break;
+         }
+         if(yy_sval_stack[-2]->GetTypeFlags()&TYPE_TYPEDEF){
+            assert(0);
+         }else{
+                              //add to declaration (through list)
+            yyval->AddToList(ct);
+         }
+      }
+   ;
+    break;}
+case 102:
+#line 767 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      yyval->AddToList(yy_sval_stack[0]);
+   ;
+    break;}
+case 103:
+#line 772 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-2];
+      yyval->AddToList(yy_sval_stack[-1]);
+   ;
+    break;}
+case 105:
+#line 788 "c_gram.cpp"
+{
+      recent_enum_val = 0;
+   ;
+    break;}
+case 106:
+#line 792 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-1];
+      yyval->SetType(TS_ENUM_TYPE);
+                              //set ourselves as parent type of all our enum constants
+      for(int i=yyval->ListSize(); i--; )
+         yyval->ListMember(i)->SetParentType(yyval);
+                              //clear list now, we dont need that more
+      yyval->ClearList();
+   ;
+    break;}
+case 107:
+#line 802 "c_gram.cpp"
+{
+      recent_enum_val = 0;
+   ;
+    break;}
+case 108:
+#line 806 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-1];
+      yyval->SetName(yy_sval_stack[-4]->GetName());
+      yyval->SetType(TS_ENUM_TYPE);
+      yyscope.AddType(yyval);
+
+                              //set ourselves as parent type of all our enum constants
+      for(int i=yyval->ListSize(); i--; )
+         yyval->ListMember(i)->SetParentType(yyval);
+                              //clear list now, we dont need that more
+      yyval->ClearList();
+   ;
+    break;}
+case 109:
+#line 825 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      yyval->AddToList(yy_sval_stack[0]);
+   ;
+    break;}
+case 110:
+#line 830 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-2];
+      yyval->AddToList(yy_sval_stack[0]);
+   ;
+    break;}
+case 111:
+#line 835 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-1];
+   ;
+    break;}
+case 112:
+#line 842 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[0];
+      yyval->SetValue(recent_enum_val++);
+                              //add enum members to identifier namespace
+      yyval->SetType(TS_ENUM_CONSTANT);
+      yyval->SetTypeFlags(TYPE_CONST);
+      yyscope.AddIdentifier(yyval);
+   ;
+    break;}
+case 113:
+#line 851 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-2];
+      if(!(yy_sval_stack[0]->GetTypeFlags()&TYPE_CONST)){
+         ERROR("right expression must be constant");
+      }
+      E_TYPE_SPECIFIER t = yy_sval_stack[0]->GetPromoteType(yy_sval_stack[0], str);
+      switch(t){
+      case TS_INT: case TS_DWORD:
+         recent_enum_val = yy_sval_stack[0]->GetPromoteVal(t);
+         yyval->SetValue(recent_enum_val++);
+         break;
+      default:
+         ERROR(ERR_MUSTBEINT);
+      }
+                              //add enum members to identifier namespace
+      yyval->SetType(TS_ENUM_CONSTANT);
+      yyval->AddTypeFlags(TYPE_CONST);
+      yyscope.AddIdentifier(yyval);
+   ;
+    break;}
+case 114:
+#line 874 "c_gram.cpp"
+{ 
+      yyval = yy_sval_stack[0];
+      yyval->AddTypeFlags(TYPE_CONST);
+   ;
+    break;}
+case 117:
+#line 898 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-3];
+      yyval->SetType(TS_FUNC);
+      for(dword i=0; i<yy_sval_stack[-1]->ListSize(); i++)
+         yyval->AddToList(yy_sval_stack[-1]->ListMember(i));
+   ;
+    break;}
+case 118:
+#line 908 "c_gram.cpp"
+{
+                              //function without parameters
+      yyval = yy_sval_stack[-2];
+      yyval->SetType(TS_FUNC);
+   ;
+    break;}
+case 119:
+#line 935 "c_gram.cpp"
+{
+      yyval=yy_sval_stack[0];
+      i=yyval->ListSize();        //get num_params
+                              //can accept one argument of void type
+      if(i==1 && yyval->ListMember(0)->GetType()==TS_VOID){
+         RESET_CURRENT
+         i = 0;
+      }
+                              //check for void param
+      while(i--){
+         if(yyval->ListMember(i)->GetType()==TS_VOID)
+            ERROR("function arguments cannot be of type \'void\'");
+      }
+   ;
+    break;}
+case 120:
+#line 956 "c_gram.cpp"
+{
+      RESET_CURRENT
+      yyval->AddToList(yy_sval_stack[0]);
+   ;
+    break;}
+case 121:
+#line 961 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-2]; yyval->AddToList(yy_sval_stack[0]);
+   ;
+    break;}
+case 122:
+#line 968 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[0];
+      yyval->CopyType(yy_sval_stack[-1]);
+   ;
+    break;}
+case 123:
+#line 973 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-2];
+      yyval->CopyType(yy_sval_stack[-3]);
+      if(yyval->GetType()==TS_STRING || yy_sval_stack[0]->GetType()==TS_LITERAL){
+         if(yyval->GetType()!=TS_STRING || yy_sval_stack[-3]->GetType()!=TS_STRING){
+            ERROR("invalid initialization type");
+         }
+         yyval->SetParentType(yy_sval_stack[0]);
+      }else{
+         yyval->SetValue(yy_sval_stack[0]->GetPromoteVal(yyval->GetType()));
+      }
+      yyval->AddTypeFlags(TYPE_PARAM_DEF);
+   ;
+    break;}
+case 126:
+#line 1038 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-1];
+   ;
+    break;}
+case 127:
+#line 1042 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-2];
+   ;
+    break;}
+case 128:
+#line 1049 "c_gram.cpp"
+{
+      RESET_CURRENT
+      yyval->AddToList(yy_sval_stack[0]);
+   ;
+    break;}
+case 129:
+#line 1054 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-2];
+      yyval->AddToList(yy_sval_stack[0]);
+   ;
+    break;}
+case 130:
+#line 1062 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[0];
+      yyval->SetDebugLine(compile_process.yyloc.l);
+   ;
+    break;}
+case 131:
+#line 1067 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[0];
+      yyval->SetDebugLine(compile_process.yyloc.l);
+   ;
+    break;}
+case 132:
+#line 1072 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[0];
+      yyval->SetDebugLine(compile_process.yyloc.l);
+   ;
+    break;}
+case 133:
+#line 1077 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[0];
+      yyval->SetDebugLine(compile_process.yyloc.l);
+   ;
+    break;}
+case 134:
+#line 1082 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[0];
+      yyval->SetDebugLine(compile_process.yyloc.l);
+   ;
+    break;}
+case 135:
+#line 1087 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[0];
+      yyval->SetDebugLine(compile_process.yyloc.l);
+   ;
+    break;}
+case 136:
+#line 1096 "c_gram.cpp"
+{
+      RESET_CURRENT
+      if(!iter_stmt && !switch_stmt){
+         ERROR("\'case\' may only appear in a switch statement");
+      }else
+      if(!yy_sval_stack[-2]->IsConst()){
+         ERROR("expression must be constant");
+      }else{
+         yyval = yy_sval_stack[0];
+                              //store reloc info
+         S_symbol_info si(SI_CASE, NULL, 0);
+                              //convert constant into type of switch expression
+                              //and save with reloc info
+         E_TYPE_SPECIFIER type = switch_expr_type->GetPromoteType(switch_expr_type, str);
+         if(type==TS_NULL){
+            ERROR(str);
+         }else{
+            si.SetData(yy_sval_stack[-2]->GetPromoteVal(type), 0);
+            yyval->AddReloc(si);
+         }
+      }
+   ;
+    break;}
+case 137:
+#line 1119 "c_gram.cpp"
+{
+      RESET_CURRENT
+      if(!iter_stmt && !switch_stmt){
+         ERROR("\'default\' may only appear in a switch statement");
+      }else{
+         yyval = yy_sval_stack[0];
+                              //store reloc info
+         S_symbol_info si(SI_DEFAULT, NULL, 0);
+         yyval->AddReloc(si);
+      }
+   ;
+    break;}
+case 138:
+#line 1134 "c_gram.cpp"
+{                          //empty compound statement
+      RESET_CURRENT
+   ;
+    break;}
+case 139:
+#line 1138 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-1];
+   ;
+    break;}
+case 140:
+#line 1142 "c_gram.cpp"
+{                          //plain local variables - keep frame size
+      RESET_CURRENT;
+                              //instantiate locals initialization code
+      for(dword i=0; i<yy_sval_stack[-1]->ListSize(); i++){
+         const C_c_type &ct = yy_sval_stack[-1]->ListMember(i);
+         const C_c_type &init = ct->GetInitializer();
+         if(init){   //produce initialization code
+                              //disable constness check
+            if(!yyval->codeAssign(ct, '=', init, str, false)){
+               ERROR(str.Size() ? (const char*)str : ERR_CANTASSIGN);
+            }
+         }
+      }
+      yyval->SolveCompoundRelocations(yy_sval_stack[-1], yy_sval_stack[0]->GetFrameSize());
+      yyval->AddFrameSize(yy_sval_stack[-1]->GetFrameSize());
+      yyscope.DecLevel();     //destroy scope of decl_list
+   ;
+    break;}
+case 141:
+#line 1160 "c_gram.cpp"
+{                          //solve relocations for decl_list
+      RESET_CURRENT;
+                              //instantiate locals initialization code
+      for(dword i=0; i<yy_sval_stack[-2]->ListSize(); i++){
+         const C_c_type &ct = yy_sval_stack[-2]->ListMember(i);
+         const C_c_type &init = ct->GetInitializer();
+         if(init){   //produce initialization code
+            if(!yyval->codeAssign(ct, '=', init, str, false)){
+               ERROR(str.Size() ? (const char*)str : ERR_CANTASSIGN);
+            }
+         }
+      }
+      yyval->codeAddCode(yy_sval_stack[-1]);
+      yyval->SolveCompoundRelocations(yy_sval_stack[-2], yy_sval_stack[-1]->GetFrameSize());
+      yyval->AddFrameSize(yy_sval_stack[-2]->GetFrameSize()+yy_sval_stack[-1]->GetFrameSize());
+      yyscope.DecLevel();     //destroy scope of decl_list
+   ;
+    break;}
+case 142:
+#line 1181 "c_gram.cpp"
+{                          //locals
+                              //create their scope
+      yyscope.IncLevel();
+      RESET_CURRENT;
+      for(dword i=0; i<yy_sval_stack[0]->ListSize(); i++){
+         C_c_type &ct = yy_sval_stack[0]->ListMember(i);
+         yyval->AddFrameSize(1);
+         ct->AddTypeFlags(TYPE_LOCAL);
+         ct->SetDebugLine(compile_process.yyloc.l);
+
+                              //check if identifier with such name doesnt already exist
+         if(!yyscope.IsIdentifierInScope(ct->GetName())){
+            yyscope.AddIdentifier(ct);
+         }else{
+            ERROR(C_fstr(ERR_TYPEDEFINED, (const char*)ct->GetName()));
+         }
+         yyval->AddToList(ct);
+      }
+   ;
+    break;}
+case 143:
+#line 1201 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-1];
+      for(dword i=0; i<yy_sval_stack[0]->ListSize(); i++){
+         C_c_type &ct = yy_sval_stack[0]->ListMember(i);
+         yyval->AddFrameSize(1);
+         ct->AddTypeFlags(TYPE_LOCAL);
+         if(!yyscope.IsIdentifierInScope(ct->GetName())){
+            yyscope.AddIdentifier(ct);
+         }else{
+            ERROR(C_fstr(ERR_TYPEDEFINED, (const char*)ct->GetName()));
+         }
+         yyval->AddToList(ct);
+      }
+   ;
+    break;}
+case 145:
+#line 1220 "c_gram.cpp"
+{                          //join code + relocs
+      yyval = yy_sval_stack[-1];
+      //if(yyval != yy_sval_stack[-1])
+      {
+         yyval->codeAddCode(yy_sval_stack[0]);
+         yyval->SetFrameSize(Max(yy_sval_stack[-1]->GetFrameSize(), yy_sval_stack[0]->GetFrameSize()));
+      }
+   ;
+    break;}
+case 146:
+#line 1232 "c_gram.cpp"
+{
+      RESET_CURRENT
+                              //set void due to neverending 'for' loops
+      yyval->SetType(TS_VOID);
+   ;
+    break;}
+case 148:
+#line 1242 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!yyval->codeSkipCond(false, yy_sval_stack[-2], yy_sval_stack[0]->GetCodeSize(), str)){
+         ERROR(str);
+      }
+                              //join statement
+      yyval->codeAddCode(yy_sval_stack[0]);
+      yyval->SetFrameSize(yy_sval_stack[0]->GetFrameSize());
+   ;
+    break;}
+case 149:
+#line 1252 "c_gram.cpp"
+{
+      RESET_CURRENT;
+                              //add 3 for JMP rel16 opcode
+      if(!yyval->codeSkipCond(false, yy_sval_stack[-4], yy_sval_stack[-2]->GetCodeSize()+3, str)){
+         ERROR(str);
+      }
+                              //join 1st statement
+      yyval->codeAddCode(yy_sval_stack[-2]);
+                              //skip out of true cond
+      yyval->codeSkip(yy_sval_stack[0]->GetCodeSize());
+                              //join 2nd statement
+      yyval->codeAddCode(yy_sval_stack[0]);
+      yyval->SetFrameSize(Max(yy_sval_stack[-2]->GetFrameSize(), yy_sval_stack[0]->GetFrameSize()));
+   ;
+    break;}
+case 150:
+#line 1267 "c_gram.cpp"
+{
+      ++switch_stmt;          //enable break
+                              //push current expression type and setup new
+      //yyval = switch_expr_type;
+      switch_expr_type->Reset();
+      switch_expr_type->CopyType(yy_sval_stack[-1]);
+   ;
+    break;}
+case 151:
+#line 1275 "c_gram.cpp"
+{
+      RESET_CURRENT;
+                              //evaluate switch expression
+      if(!yyval->codePickParam(yy_sval_stack[-3], yy_sval_stack[-3]->GetType(), str))
+         ERROR(str);
+                              //build jump branch
+      if(!yyval->codeBuildSwitchBranch(yy_sval_stack[0], yy_sval_stack[-3]->SizeOf(), str)){
+         ERROR(str);
+      }
+      yyval->codeAddCode(yy_sval_stack[0]);
+                              //solve break relocations
+      yyval->codeRelocIterSkip(SI_BREAK, yyval->GetCodeSize());
+                              //pop current expression type and setup new
+      //switch_expr_type = yy_sval_stack[-1];
+      --switch_stmt;
+   ;
+    break;}
+case 152:
+#line 1295 "c_gram.cpp"
+{
+      ++iter_stmt;            //enable continue and break
+   ;
+    break;}
+case 153:
+#line 1299 "c_gram.cpp"
+{
+      RESET_CURRENT;
+                              //add 3 for JMP rel16 opcode
+      if(!yyval->codeSkipCond(false, yy_sval_stack[-3], yy_sval_stack[0]->GetCodeSize()+3, str)){
+         ERROR(str);
+      }
+                              //join statement
+      yyval->codeAddCode(yy_sval_stack[0]);
+                              //solve continue relocations
+      yyval->codeRelocIterSkip(SI_CONTINUE, 0);
+                              //skip back (stmt size + expression)
+      yyval->codeSkip(-int(yyval->GetCodeSize()));
+                              //solve break relocations
+      yyval->codeRelocIterSkip(SI_BREAK, yyval->GetCodeSize());
+      yyval->SetFrameSize(yy_sval_stack[0]->GetFrameSize());
+      --iter_stmt;
+   ;
+    break;}
+case 154:
+#line 1317 "c_gram.cpp"
+{
+      ++iter_stmt;            //enable continue and break
+   ;
+    break;}
+case 155:
+#line 1321 "c_gram.cpp"
+{
+      RESET_CURRENT;
+                              //join statement
+      yyval->codeAddCode(yy_sval_stack[-5]);
+                              //solve continue relocations
+      yyval->codeRelocIterSkip(SI_CONTINUE, yyval->GetCodeSize());
+
+      if(!yyval->codeSkipCond(true, yy_sval_stack[-2], -int(yyval->GetCodeSize()), str)){
+         ERROR(str);
+      }
+                              //solve break relocations
+      yyval->codeRelocIterSkip(SI_BREAK, yyval->GetCodeSize());
+      yyval->SetFrameSize(yy_sval_stack[-5]->GetFrameSize());
+      --iter_stmt;
+   ;
+    break;}
+case 156:
+#line 1337 "c_gram.cpp"
+{
+      ++iter_stmt;            //enable continue and break
+   ;
+    break;}
+case 157:
+#line 1341 "c_gram.cpp"
+{
+      RESET_CURRENT;
+                              //expand init statement
+      yyval->codeAddCode(yy_sval_stack[-4]);
+
+      int check_point = yyval->GetCodeSize();
+                              //expand check statement if not empty
+      if(yy_sval_stack[-3]->GetType() != TS_VOID){
+                              //solve continue relocations
+         yy_sval_stack[0]->codeRelocIterSkip(SI_CONTINUE, -int(yy_sval_stack[-3]->GetCodeSize()+3));
+                              //skip-over if check fails - add 3 for jump back
+         if(!yyval->codeSkipCond(false, yy_sval_stack[-3], yy_sval_stack[0]->GetCodeSize()+3, str)){
+            ERROR(str);
+         }
+      }else{
+                              //solve continue relocations
+         yy_sval_stack[0]->codeRelocIterSkip(SI_CONTINUE, 0);
+      }
+                              //expand iteration statement
+      yyval->codeAddCode(yy_sval_stack[0]);
+                              //jump back to checkpoint
+      yyval->codeSkip(-int(yyval->GetCodeSize()-check_point));
+                              //solve break relocations
+      yyval->codeRelocIterSkip(SI_BREAK, yyval->GetCodeSize());
+
+      yyval->SetFrameSize(yy_sval_stack[0]->GetFrameSize());
+      --iter_stmt;
+   ;
+    break;}
+case 158:
+#line 1370 "c_gram.cpp"
+{
+      ++iter_stmt;            //enable continue and break
+   ;
+    break;}
+case 159:
+#line 1374 "c_gram.cpp"
+{
+      RESET_CURRENT
+                              //expand init statement
+      yyval->codeAddCode(yy_sval_stack[-5]);
+
+      int check_point = yyval->GetCodeSize();
+                              //expand check statement if not empty
+      if(yy_sval_stack[-4]->GetType() != TS_VOID){
+                              //solve continue relocations
+         yy_sval_stack[0]->codeRelocIterSkip(SI_CONTINUE, -int(yy_sval_stack[-4]->GetCodeSize()+3));
+                              //skip-over if check fails - add 3 for jump back
+         if(!yyval->codeSkipCond(false, yy_sval_stack[-4], yy_sval_stack[0]->GetCodeSize()+yy_sval_stack[-3]->GetCodeSize()+3, str)){
+            ERROR(str);
+         }
+      }else{
+                              //solve continue relocations
+         yy_sval_stack[-1]->codeRelocIterSkip(SI_CONTINUE, 0);
+      }
+                              //expand iteration statement
+      yyval->codeAddCode(yy_sval_stack[0]);
+                              //expand post-expression
+      yyval->codeAddCode(yy_sval_stack[-3]);
+                              //jump back to checkpoint
+      yyval->codeSkip(-int(yyval->GetCodeSize()-check_point));
+                              //solve break relocations
+      yyval->codeRelocIterSkip(SI_BREAK, yyval->GetCodeSize());
+
+      yyval->SetFrameSize(yy_sval_stack[0]->GetFrameSize());
+      --iter_stmt;
+   ;
+    break;}
+case 160:
+#line 1409 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!iter_stmt){
+         ERROR("\'continue\' may only appear in a for, do, or while statement");
+      }else{
+         yyval->codeSkipIter(SI_CONTINUE);
+      }
+   ;
+    break;}
+case 161:
+#line 1418 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(!iter_stmt && !switch_stmt){
+         ERROR("\'break\' may only appear in a for, do, while, or switch statement");
+      }else{
+         yyval->codeSkipIter(SI_BREAK);
+      }
+   ;
+    break;}
+case 162:
+#line 1427 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      if(fnt_ret_type->GetType() != TS_VOID){
+         ERROR(ERR_MISSRETVAL);
+      }
+      yyval->codeReturn();
+   ;
+    break;}
+case 163:
+#line 1435 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      E_TYPE_SPECIFIER ret_type = fnt_ret_type->GetType();
+      if(ret_type == TS_VOID){
+         ERROR(ERR_CANTRETVAL);
+      }else{
+                              //expand expression
+         if(!yyval->codePickParam(yy_sval_stack[-1], fnt_ret_type->GetType(), str)){
+            ERROR(str.Size() ? (const char*)str : ERR_MISMATCH);
+         }else{
+                              //return floats in FPU
+            if(ret_type==TS_FLOAT){
+               yyval->codePickFPUValue();
+            }
+            yyval->codeReturn();
+         }
+      }
+   ;
+    break;}
+case 166:
+#line 1459 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-1];
+      ERROR(C_fstr("useless identifier: '%s'", (const char*)yyval->GetName()));
+   ;
+    break;}
+case 167:
+#line 1467 "c_gram.cpp"
+{
+                              //function
+      RESET_CURRENT;
+#if !defined _DEBUG && 0
+                              //align code segment to dword
+      while(tmp_code.size()&3)
+         tmp_code.push_back(BRK);
+#endif
+                              //yyval is func type, list() are parameters, list(n) is compound statement
+      C_c_type &fnc_def = yy_sval_stack[0];
+      dword num_params = fnc_def->GetFrameSize();
+      const C_c_type &fnc_body = fnc_def->GetFunctionBody();
+                              //put fnc to external symbol table
+      tmp_symbols.push_back(S_symbol_info(SI_LOCAL, fnc_def->GetName(), tmp_code.size()));
+
+      tmp_code.push_back(OP_SCRIPT_FUNC_CODE);
+      StoreWord(tmp_code, (word)num_params);
+
+                              //create stack frame if local variables or fnc params
+      dword frame_size = fnc_body->GetFrameSize();
+      bool use_frame = (frame_size || num_params);
+      if(use_frame){
+         tmp_code.push_back(ENTER);
+         StoreWord(tmp_code, word(frame_size * 4));
+      }
+      dword reloc_base = tmp_code.size();
+                              //copy code
+      const byte *code_ptr = fnc_body->GetCode();
+      tmp_code.insert(tmp_code.end(), code_ptr, code_ptr+fnc_body->GetCodeSize());
+                              //solve local relocations (return),
+                              //copy rest to file reloc table
+      const S_symbol_info *rt = fnc_body->GetRelocs();
+      for(dword i=0; i<fnc_body->GetRelocNum(); i++){
+         const S_symbol_info &ri = rt[i];
+         switch(ri.type){
+         case SI_RETURN:
+            if(!use_frame){
+                              //optimization - relace jmp by direct ret
+               tmp_code[ri.GetAddress()+reloc_base-1] = RET;
+            }else{
+               *((word*)(&tmp_code[ri.GetAddress()+reloc_base])) =
+                  word(tmp_code.size()-(ri.GetAddress()+reloc_base+2));
+            }
+            break;
+         default:
+            tmp_reloc.push_back(S_symbol_info(ri));
+            tmp_reloc.back().address += reloc_base;
+            break;
+         }
+      }
+      if(use_frame)
+         tmp_code.push_back(LEAVE);
+      if(num_params){
+                              //return & clean stack
+         tmp_code.push_back(RETN);
+         StoreWord(tmp_code, word(num_params*4));
+      }else{
+         tmp_code.push_back(RET);
+      }
+                              //function body implemented, free now as its no more needed
+      fnc_def->SetFunctionBody(NULL);
+      yyscope.DecLevel();
+   ;
+    break;}
+case 168:
+#line 1531 "c_gram.cpp"
+{
+                              //instantiate all declarations,
+                              // note: enums and typedefs have empy lists, so they do not instantiate anything
+      for(dword i=0; i<yy_sval_stack[0]->ListSize(); i++){
+                              //put to global namespace
+         C_c_type &ct = yy_sval_stack[0]->ListMember(i);
+         if(yyscope.IsIdentifierInScope(ct->GetName())){
+            const C_c_type &c1 = yyscope.FindIdentifier(ct->GetName());
+            if((c1->GetTypeFlags()&TYPE_EXTERN) && !(ct->GetTypeFlags()&TYPE_EXTERN)){
+               if(c1->GetType() != ct->GetType()){
+                  ERROR(C_fstr("type mismatch: '%s' - see previous extern declaration", (const char*)ct->GetName()));
+               }
+            }else{
+               ERROR(C_fstr("variable already defined: '%s'", (const char*)ct->GetName()));
+            }
+         }
+         yyscope.AddIdentifier(ct);
+         if(!ct->dataInstantiate(tmp_data, tmp_symbols, tmp_reloc, str)){
+            ERROR(str);
+         }
+      }
+   ;
+    break;}
+case 170:
+#line 1559 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-1];
+      yy_sval_stack[0]->SetReturnType(yy_sval_stack[-1]);
+
+      if(yyscope.IsIdentifierInScope(yy_sval_stack[0]->GetName())){
+         const C_c_type &c1 = yyscope.FindIdentifier(yy_sval_stack[0]->GetName());
+         if(c1->GetTypeFlags()&TYPE_EXTERN){
+            bool match = (c1->GetReturnType()->GetType() == yy_sval_stack[0]->GetReturnType()->GetType());
+            if(match){
+               const C_vector<C_c_type> &l1 = c1->GetList(), &l2 = yy_sval_stack[0]->GetList();
+               match = (l1.size() == l2.size());
+               if(match){
+                  int i;
+                  for(i=l1.size(); i--; ){
+                     if(l1[i]->GetType() != l2[i]->GetType())
+                        break;
+                  }
+                  match = (i==-1);
+               }
+            }
+            if(!match){
+               ERROR("function declaration mismatch - see previous declaration");
+            }
+         }else{
+            ERROR("function already declared");
+         }
+      }
+                              //put fnc to global namespace
+      yyscope.AddIdentifier(yy_sval_stack[0]);
+                              //put func parameters into func scope
+      yyscope.IncLevel();
+      for(dword i=0; i<yy_sval_stack[0]->ListSize(); i++){
+         C_c_type &ct = yy_sval_stack[0]->ListMember(i);
+         ct->AddTypeFlags(TYPE_PARAM);
+         ct->SetAddress(short(i*4+8));  //assume stack frame size
+         yyscope.AddIdentifier(ct);
+      }
+                              //setup func info (for param return)
+      fnt_ret_type->Reset();
+      fnt_ret_type->CopyType(yy_sval_stack[-1]);
+      yyval->SetName(yy_sval_stack[0]->GetName());
+
+                              //store debug info
+      yyval->SetDebugLine(compile_process.yyloc.l);
+   ;
+    break;}
+case 171:
+#line 1605 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-2];
+      yyval->SetFrameSize(yyval->ListSize());
+      yyval->SetFunctionBody(yy_sval_stack[0]);
+      /*
+      if(!$4->GetCodeSize()){
+         ERROR("compund block without code");
+      }
+      */
+   ;
+    break;}
+case 172:
+#line 1654 "c_gram.cpp"
+{
+      RESET_CURRENT
+      yyval->SetType(TS_LITERAL);
+      yyval->SetTypeFlags(TYPE_CONST);
+
+      C_vector<byte> &seg = tmp_code;
+      seg.push_back(OP_STRING);
+                              //instantiate string in const segment
+      yyval->SetValue(seg.size());
+      const C_str &str = yy_sval_stack[0]->GetName();
+      if(str.Size()){
+         seg.insert(seg.end(), (byte*)(const char*)str, ((byte*)(const char*)str)+str.Size()+1);
+      }else
+         seg.push_back(0);
+                              //clear name, no more needed
+      yy_sval_stack[0]->SetName(NULL);
+   ;
+    break;}
+case 173:
+#line 1678 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-1];
+      switch(yyval->GetType()){
+      case TS_INT:
+      case TS_FLOAT:
+      case TS_STRING:
+      case TS_BOOL:
+         break;
+      default:
+         yyval->SetType(TS_INT);
+         ERROR("unsupported type for table");
+      }
+      yyval->AddTypeFlags(TYPE_TABLE);
+      yyval->SetName(yy_sval_stack[0]->GetName());
+      if(!yyscope.AddIdentifier(yyval)){
+         ERROR(C_fstr("symbol '%s' is already defined!", (const char*)yyval->GetName()));
+      }
+   ;
+    break;}
+case 174:
+#line 1700 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-1];
+      yyval->SetTableDesc(yy_sval_stack[0]);
+   ;
+    break;}
+case 175:
+#line 1708 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-4];
+      yyval->AddTypeFlags(TYPE_ARRAY);
+      int size = yy_sval_stack[-2]->GetValue();
+      if(size <= 0){
+         ERROR(C_fstr("invalid array size: %i", size));
+         size = 1;
+      }
+      yyval->SetValue(size);
+      yyval->SetTableDesc(yy_sval_stack[0]);
+   ;
+    break;}
+case 178:
+#line 1729 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-1];
+      yyval->SetTableDesc(yy_sval_stack[0]);
+   ;
+    break;}
+case 179:
+#line 1734 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-3];
+      yyval->SetTableDesc(yy_sval_stack[-2]);
+      yyval->SetInitializer(yy_sval_stack[0]);
+   ;
+    break;}
+case 180:
+#line 1740 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-4];
+      yyval->AddTypeFlags(TYPE_ARRAY);
+      yyval->SetTableDesc(yy_sval_stack[0]);
+      int size = yy_sval_stack[-2]->GetValue();
+      if(size <= 0){
+         ERROR(C_fstr("invalid array size: %i", size));
+         size = 1;
+      }
+      yyval->SetValue(size);
+   ;
+    break;}
+case 181:
+#line 1752 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-6];
+      yyval->AddTypeFlags(TYPE_ARRAY);
+      yyval->SetTableDesc(yy_sval_stack[-2]);
+      yyval->SetInitializer(yy_sval_stack[0]);
+      int size = yy_sval_stack[-4]->GetValue();
+      if(size <= 0){
+         ERROR(C_fstr("invalid array size: %i", size));
+         size = 1;
+      }
+      yyval->SetValue(size);
+   ;
+    break;}
+case 183:
+#line 1769 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-3];
+      yyval->SetParentType(yy_sval_stack[-1]);
+   ;
+    break;}
+case 184:
+#line 1779 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-1];
+      if(yyval->GetType()==TS_STRING){
+         ERROR("invalid table string declaration - need size in () block after name");
+      }
+   ;
+    break;}
+case 185:
+#line 1786 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-4];
+      yyval->AddToList(yy_sval_stack[-2]);
+   ;
+    break;}
+case 186:
+#line 1791 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-6];
+      yyval->AddToList(yy_sval_stack[-4]);
+      C_c_type ct = new C_c_type_imp;
+      ct->SetType(TS_INT);
+      ct->SetTypeFlags(TYPE_CONST);
+      yyval->AddToList(ct);
+      yyval->AddToList(ct);
+      ct->Release();
+      yyval->AddToList(yy_sval_stack[-2]);
+   ;
+    break;}
+case 187:
+#line 1803 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-8];
+      yyval->AddToList(yy_sval_stack[-6]);
+      yyval->AddToList(yy_sval_stack[-4]);
+      yyval->AddToList(yy_sval_stack[-2]);
+      switch(yyval->GetType()){
+      case TS_BOOL:
+      case TS_STRING:
+         ERROR("variable of this type doesn't accept range values");
+         break;
+      }
+   ;
+    break;}
+case 188:
+#line 1816 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-10];
+      yyval->AddToList(yy_sval_stack[-8]);
+      yyval->AddToList(yy_sval_stack[-6]);
+      yyval->AddToList(yy_sval_stack[-4]);
+      yyval->AddToList(yy_sval_stack[-2]);
+      switch(yyval->GetType()){
+      case TS_STRING:
+      case TS_BOOL:
+         ERROR("variable of this type doesn't accept range values");
+         break;
+      }
+   ;
+    break;}
+case 189:
+#line 1830 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-3];
+      yyval->CopyList(yy_sval_stack[-1]);
+   ;
+    break;}
+case 190:
+#line 1840 "c_gram.cpp"
+{
+      RESET_CURRENT;
+      yyval->AddToList(yy_sval_stack[0]);
+   ;
+    break;}
+case 191:
+#line 1845 "c_gram.cpp"
+{
+      yyval = yy_sval_stack[-1];
+      yyval->AddToList(yy_sval_stack[0]);
+   ;
+    break;}
+case 192:
+#line 1855 "c_gram.cpp"
+{
+      if(!yy_sval_stack[-1]->InstantiateTableTemplate(yy_sval_stack[-3], tmp_templ, tmp_reloc, str)){
+         ERROR(str);
+      }
+   ;
+    break;}
+default: DEFAULT_ACTION;
+}

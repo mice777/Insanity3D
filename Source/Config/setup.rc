@@ -1,0 +1,217 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "windows.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG_MAIN DIALOG DISCARDABLE  0, 0, 354, 143
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Insanity 3D Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         103,IDC_STATIC,"Static",SS_BITMAP | SS_SUNKEN,7,6,96,71
+    DEFPUSHBUTTON   "&OK",IDOK,79,122,50,14
+    PUSHBUTTON      "&Cancel",IDCANCEL,141,122,50,14
+    PUSHBUTTON      "&Apply",ID_APPLY,203,122,50,14
+    CONTROL         "Tab1",IDC_TAB_MAIN,"SysTabControl32",WS_TABSTOP,107,6,
+                    240,108
+END
+
+IDD_PAGE_VIDEO DIALOG DISCARDABLE  0, 0, 217, 90
+STYLE DS_CONTROL | WS_CHILD | WS_CLIPSIBLINGS
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "Display device:",IDC_DISPLAY,"Static",SS_LEFTNOWORDWRAP | 
+                    WS_GROUP,0,4,69,8
+    COMBOBOX        IDC_COMBO_DEVICES,78,2,137,73,CBS_DROPDOWNLIST | 
+                    WS_DISABLED | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "&Resolution:",IDC_TXT_RES,"Static",SS_LEFTNOWORDWRAP | 
+                    WS_GROUP,0,15,104,8
+    COMBOBOX        IDC_COMBO_MODES,0,26,104,98,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Bit depth:",IDC_TXT_DEPTH,"Static",SS_LEFTNOWORDWRAP | 
+                    WS_GROUP,0,40,102,8
+    COMBOBOX        IDC_COMBO_DEPTHS,0,50,104,98,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "&Antialias:",IDC_TXT_ANTIALIAS,"Static",
+                    SS_LEFTNOWORDWRAP | WS_GROUP,0,64,102,8
+    COMBOBOX        IDC_ANTIALIAS,0,74,104,70,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    GROUPBOX        "Settings",IDC_TXT_SETTINGS,109,18,107,53
+    CONTROL         "&Full-screen",IDC_CHECK_FULLSCREEN,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,115,29,100,10
+    CONTROL         "&Triple buffering",IDC_CHECK_TRIPPLEBUF,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,115,42,100,10
+    CONTROL         "Compressed te&xtures",IDC_CHECK_TXT_COMPR,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,115,55,100,10
+END
+
+IDD_PAGE_SOUND DIALOG DISCARDABLE  0, 0, 196, 82
+STYLE DS_CONTROL | WS_CHILD | WS_CLIPSIBLINGS
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "Sound device:",IDC_SOUND_DEV_TXT,"Static",
+                    SS_LEFTNOWORDWRAP | WS_GROUP,0,4,69,8
+    LTEXT           "...........................................................",
+                    IDC_SND_DEVICE_NAME,78,4,118,9,SS_SUNKEN
+    GROUPBOX        "Settings",IDC_TXT_SETTINGS,0,16,121,55
+    CONTROL         "Enable &sounds",IDC_CHECK_SOUNDS,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,6,27,100,10
+    CONTROL         "Use &hardware acceleration",IDC_CHECK_USE_SOUND_HW,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,40,100,10
+    CONTROL         "Use &EAX",IDC_CHECK_USE_EAX,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,6,53,100,10
+END
+
+IDD_PAGE_ADVANCED DIALOG DISCARDABLE  0, 0, 180, 82
+STYLE DS_CONTROL | WS_CHILD | WS_CLIPSIBLINGS
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Settings",IDC_STATIC,0,2,121,72
+    CONTROL         "Use &Database",IDC_CHECK_DBASE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,6,13,100,10
+    CONTROL         "&Reference device",IDC_CHECK_REF_DEVICE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,6,26,100,10
+    CONTROL         "Disable &vertex shaders",IDC_CHECK_NO_VSHADER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,6,39,100,10
+    CONTROL         "Disable &pixel shaders",IDC_CHECK_NO_PSHADER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,6,52,100,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    "IDD_DIALOG_MAIN", DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 347
+        TOPMARGIN, 6
+        BOTTOMMARGIN, 136
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""windows.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP1             BITMAP  DISCARDABLE     "Resources\\i3d2.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+1                       ICON    DISCARDABLE     "Resources\\icon1.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTS
+//
+
+ENGLISH                 TEXTS   DISCARDABLE     "Resources\\english.txt"
+CZECH                   TEXTS   DISCARDABLE     "Resources\\czech.txt"
+FRENCH                  TEXTS   DISCARDABLE     "Resources\\french.txt"
+GERMAN                  TEXTS   DISCARDABLE     "Resources\\german.txt"
+ITALIAN                 TEXTS   DISCARDABLE     "Resources\\italian.txt"
+SPANISH                 TEXTS   DISCARDABLE     "Resources\\spanish.txt"
+JAPAN                   TEXTS   DISCARDABLE     "Resources\\japan.txt"
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.K.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+MENU_WHAT MENU DISCARDABLE 
+BEGIN
+    POPUP ""
+    BEGIN
+        MENUITEM "&What's this?",               ID__WHATSTHIS
+    END
+END
+
+#endif    // English (U.K.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

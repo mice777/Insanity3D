@@ -1,0 +1,121 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "windows.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+DLG_PROPERTIES DIALOGEX 0, 0, 198, 161
+STYLE DS_3DLOOK | DS_CONTROL | WS_POPUP | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | 
+    WS_THICKFRAME
+FONT 8, "MS Sans Serif"
+BEGIN
+    LISTBOX         IDC_STUFF,1,1,51,39,LBS_OWNERDRAWFIXED | 
+                    LBS_NOINTEGRALHEIGHT | LBS_WANTKEYBOARDINPUT | NOT 
+                    WS_BORDER | WS_VSCROLL | WS_TABSTOP,WS_EX_STATICEDGE
+    EDITTEXT        IDC_EDIT,55,1,50,12,ES_AUTOHSCROLL | NOT WS_VISIBLE | 
+                    NOT WS_BORDER | NOT WS_TABSTOP,WS_EX_STATICEDGE
+    CONTROL         "Slider1",IDC_SLIDER,"msctls_trackbar32",TBS_AUTOTICKS | 
+                    NOT WS_VISIBLE,55,20,58,9
+    LISTBOX         IDC_CHOOSE,112,1,46,13,LBS_NOINTEGRALHEIGHT | NOT 
+                    WS_VISIBLE | NOT WS_BORDER | WS_VSCROLL,WS_EX_STATICEDGE
+    CONTROL         "",IDC_CHECK,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    NOT WS_VISIBLE,118,20,20,8
+    CONTROL         "&Defaults",IDC_BUTTON_DEF,"Button",BS_OWNERDRAW | NOT 
+                    WS_VISIBLE | WS_DISABLED,1,43,31,9
+    CONTROL         "&Edit",IDC_BUTTON_EDIT,"Button",BS_OWNERDRAW | NOT 
+                    WS_VISIBLE | WS_DISABLED,1,55,15,9
+    CONTROL         "&Update",IDC_BUTTON_UPDATE,"Button",BS_OWNERDRAW | NOT 
+                    WS_VISIBLE | WS_DISABLED,1,68,28,9
+    CONTROL         "&Import",IDC_BUTTON_IMPORT,"Button",BS_OWNERDRAW | NOT 
+                    WS_VISIBLE | WS_DISABLED,1,82,23,9
+    CONTROL         "E&xport",IDC_BUTTON_EXPORT,"Button",BS_OWNERDRAW | NOT 
+                    WS_VISIBLE | WS_DISABLED,1,94,23,9
+    CONTROL         "...",IDC_BROWSE,"Button",BS_OWNERDRAW | NOT WS_VISIBLE,
+                    1,119,10,9
+    CONTROL         "&Close",IDC_BUTTON_CLOSE,"Button",BS_OWNERDRAW | NOT 
+                    WS_VISIBLE,41,44,22,9
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    "DLG_PROPERTIES", DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 197
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 160
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""windows.h""\r\n"
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

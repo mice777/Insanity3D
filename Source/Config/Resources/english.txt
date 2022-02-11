@@ -1,0 +1,212 @@
+; Translation notes:
+; - Do not translate lines starting with ';', translate only numbered lines.
+; - Keep texts short, otherwise they won't fit into their space. Above each text is a meter how long text may be, you should fit into it.
+; - Keep quotes at beginning and end of text.
+; - You may use one ampersand (&) in each line, which is used for keyboard shortcut when navigating among controls.
+
+
+;  Name of current display adapter installed in computer.
+;  |-------------------|
+~1
+Display adapter:
+
+;  3D device used for rendering (combobox).
+;  |----------------------------|
+~2  
+&3D device:
+
+;  Resolution in which player wishes to play (combobox).
+;  |----------------------------|
+~3
+&Resolution:
+
+;  Display bit depth in which player wishes to play (combobox).
+;  |----------------------------|
+~4  
+Bit depth:
+
+;  Ok button.
+;  |-----------|
+~5  
+&OK
+
+;  Cancel button.
+;  |-----------|
+~6  
+&Cancel
+
+;  Apply button.
+;  |-----------|
+~7  
+&Apply
+
+;  Group box of settings.
+;  |-------------------|
+~8  
+Settings
+
+;  Enable full-screen mode (checkbox).
+;  |------------------------|
+~9  
+&Full-screen
+
+;  Enable triple buffering (checkbox).
+;  |------------------------|
+~10 
+&Triple buffering
+
+;  Enable sounds (checkbox).
+;  |------------------------|
+~11 
+Enable &sounds
+
+;  Enable compressed textures (checkbox).
+;  |------------------------|
+~12 
+Compressed te&xtures
+
+;  Use special database for caching (checkbox).
+;  |------------------------|
+~13 
+Use &Database
+
+;  Group box for texture filtering mode.
+;  |------------------------|
+~14 
+Texture filtering
+
+;  Use linear filtering (radio button).
+;  |------------------------|
+~15 
+&Linear
+
+;  Use anisotropic filtering (radio button).
+;  |------------------------|
+~16 
+A&nisotrpoic
+
+; Antialiasing modes
+;  |--------------------|
+~20 
+Antialiasing
+
+~21 
+No
+
+~22 
+Simple
+
+~23 
+Best
+
+~24
+Sound device
+
+~25
+Use &hardware acceleration
+
+~26
+Use &EAX
+
+~27
+Video
+
+~28
+Sound
+
+~29
+Advanced
+
+;---------------------------- Help texts ----------------------------
+
+~help_no
+<no help>
+
+~help_disp
+Display device, which will be used for displaying graphics.
+
+~help_3d_dev
+3D device used for rendering. By default, HAL device provides best performance.
+Optional REF device may be selected for testing game functionality.
+
+~help_res
+Resolution of graphics window.
+For fullscreen mode, this is the resolution, to which graphics will be set.
+For non-fullscreen mode, this is the size of created window.
+
+~help_depth
+Bit depth of graphics window.
+You may select the bit depth only for fullscreen mode. In windowed mode, the bit depth equals to bit depth of desktop window.
+
+~help_ok
+Save selected settings and close the dialog window.
+
+~help_cancel
+Discard settings and close the dialog window.
+
+~help_apply
+Apply current settings - store values into configuration file.
+
+~help_settings
+Additional settings applied to graphics window and rendering.
+
+~help_fullscreen
+Initialize graphics in fullscreen mode.
+If this box is checked, the screen will be initialized to fullscreen, in selected display resolution.
+When unchecked, the graphics will be presented in a window with selected size.
+
+~help_tripple
+Use triple buffering (applicable only in fullscreen mode).
+When this is selected, the system allocates one extra buffer for faster swapping of rendered screen.
+This may result in improved performance, but it also consumes more graphics memory.
+This setting is suggested if your card have enough display memory (32 MB and more).
+
+~help_compress
+Use compressed textures.
+By checking this box, you select to use compressed textures (if available by graphics card).
+This may enable enhanced performance for the cost of slightly worse texture quality.
+
+~help_filtering
+Texture filtering mode.
+
+~help_filter_linear
+Linear texture filtering.
+
+~help_filter_aniso
+Anisotropic texture filtering.
+If available by hardware, this setting will give textures a smoother look.
+
+~help_anitialias
+Antialiasing mode. The mode you select has usually a great impact on rendering speed.
+The smoother antialias mode you select, the slower performance you may gain.
+On the other side, antialiasing (if supported by graphics hardware) improves the quality of rendered images.
+
+~help_snd_dev
+Sound device, which will be used for sound playback.
+
+~help_sounds
+Enable sounds.
+You may choose to disable sound playback if you have no sound card installed, or have problem with sounds.
+
+~help_use_eax
+Enable use EAX.
+Note that this settings takes effect only if you have EAX-equipped sound card, such as SoundBlaster Live or similar.
+If you encounter problems with the sound playback, you may want to disable this option.
+
+~help_snd_hw
+Play sounds through hardware sound buffers.
+If you encounter problems with the sound playback, you may want to disable this option.
+
+~help_database
+Use caching into database located on a hard disk. This improves loading times significantly, by storing the pre-computed data (geometry, textures) onto huge hard disk file, so that the computed results are available when they're loaded next time.
+
+~help_ref
+Use reference device for rendering.
+
+~help_no_vshader
+Disable use of vertex shaders, if available by hardware.
+If vertex shaders are unavailable, this option has no effect.
+
+~help_no_pshader
+Disable use of pixel shaders, if available by hardware.
+If pixel shaders are unavailable, this option has no effect.

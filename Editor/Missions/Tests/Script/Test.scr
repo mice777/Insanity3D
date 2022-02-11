@@ -1,0 +1,20 @@
+
+table "Flash game"{
+   bool begin "Begin";
+   string peers[4]"Peers"(10);
+}
+
+void OnSignal(int id = 0){
+   float t = 100+RandomF()*200;
+   FlashObject(t, t/10, t);
+   {
+      int pi = RandomI(4);
+      LogI(pi);
+      SendSignal(peers[pi]);
+   }
+}
+
+void Main(){
+   if(begin)
+      OnSignal();
+}

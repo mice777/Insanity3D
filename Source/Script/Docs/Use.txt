@@ -1,0 +1,11 @@
+Script compiler command-line parameters:
+
+
+Option            Description
+
+/I<filename>      force inclusion of specified (header) file
+/i                specify additional include directory
+
+
+
+//----------------------------

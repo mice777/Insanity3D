@@ -1,0 +1,31 @@
+; System messages, range 1 - 199
+; Note: these texts can't be in unicode format!
+
+~err_Config
+Cannot run game configuration utility.
+
+; Inintialization errors
+
+~err_InitFail
+Unable to initialize 3D system: %s
+
+~err_Unknown
+(unknown error)
+
+~err_NoMem
+Probable cause: not enough video memory for selected video mode
+
+~err_Graphics    
+Unable to initialize graphics. Please run Setup.
+
+~err_Sounds
+Unable to initialize sounds. The game will be run with disabled sounds.
+
+~err_NoFile
+Failed to open data file: '%s'.
+
+; Messages
+
+~msg_SaveShot
+Screenshot saved!
+

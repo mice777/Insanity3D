@@ -1,0 +1,7 @@
+enter {
+   callback "errortag"
+}
+
+esc {
+   callback "edit_window"
+}

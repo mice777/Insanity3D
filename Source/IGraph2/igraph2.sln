@@ -1,0 +1,28 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PNG", "PNG\PNG.vcproj", "{9E803C12-B83A-4086-8C58-0DA7F7B97DB1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "igraph2", "igraph2.vcproj", "{E50D4D68-D202-415A-AA63-9C36FA0BB7A0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9E803C12-B83A-4086-8C58-0DA7F7B97DB1} = {9E803C12-B83A-4086-8C58-0DA7F7B97DB1}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E803C12-B83A-4086-8C58-0DA7F7B97DB1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9E803C12-B83A-4086-8C58-0DA7F7B97DB1}.Debug|Win32.Build.0 = Debug|Win32
+		{9E803C12-B83A-4086-8C58-0DA7F7B97DB1}.Release|Win32.ActiveCfg = Release|Win32
+		{9E803C12-B83A-4086-8C58-0DA7F7B97DB1}.Release|Win32.Build.0 = Release|Win32
+		{E50D4D68-D202-415A-AA63-9C36FA0BB7A0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E50D4D68-D202-415A-AA63-9C36FA0BB7A0}.Debug|Win32.Build.0 = Debug|Win32
+		{E50D4D68-D202-415A-AA63-9C36FA0BB7A0}.Release|Win32.ActiveCfg = Release|Win32
+		{E50D4D68-D202-415A-AA63-9C36FA0BB7A0}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

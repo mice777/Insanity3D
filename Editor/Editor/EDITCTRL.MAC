@@ -1,0 +1,607 @@
+; ^ - Ctrl
+; # - Shift
+; @ - Alt
+; ! - ignore shift (enables CUA marking)
+; & - prevent CUA marking (if combination uses shift)
+
+; C++ keyword shortcuts
+
+^a    { cursordown { tablt } }
+^a    'default: '
+@a    'class'
+^b    'break'
+@b    'byte'
+#^b   'bool'
+^c    'class'
+@c    'char'
+^d    '#define '
+@d    'delete'
+^e    'extern'
+@e    'else'
+^f    'for'
+@f    'float'
+@^f   'friend'
+#^f   'false'
+^g    'signed'
+@g    'unsigned'
+@^g   'goto'
+^i    '#include '
+@i    'int'
+^@i   'inline'
+@k    { markcolumn }
+^l    'long'
+@l    { markline }
+^m    'enum'
+^n    'const'
+@n    'new'
+^@n   'NULL'
+^o    'operator'
+@o    'protected'
+^p    '#pragma'
+^r    'return'
+@r    'private'
+^@s   'struct'
+@s    'short'
+^s    'static'
+^t    'throw'
+@t    'typedef'
+@^t   'template'
+#^t   'true'
+^u    'continue'
+@u    'public'
+@^u   'union'
+^v    'virtual'
+@v    'void'
+^w    'while'
+@w    'word'
+^x    {
+   if not redo {
+      Message 'Nothing to redo'
+   }
+}
+
+@x    { exit }
+;@f3   { exit }
+
+@z    'sizeof'
+^z    {
+   if not undo {
+      Message 'No more undos'
+   }
+}
+^space {
+   makectrline
+}
+
+
+!home  {
+;   if firstnonwhite { return }
+;   begline
+   if not begline { firstnonwhite }
+}
+
+!@home {
+   firstnonwhite
+}
+
+;esc { exit }
+esc {
+   callback "escape"
+}
+
+!@pgup { halfpageup }
+!@pgdn { halfpagedown }
+
+f1 { callback "help" }
+
+f3 {
+   begline ;deltoeol
+   cursorright cursorright cursorright cursorright cursorright cursorright
+   cursorright cursorright cursorright cursorright cursorright cursorright
+   cursorright cursorright cursorright cursorright cursorright cursorright
+   '//'
+}
+
+#&f3 {
+   if not cursordown { addline cursordown }
+   else { insertline }
+   begline '//----------------------------' begline
+}
+
+f4 { dupline }
+
+^f12 {
+   cursorright
+   while not isendfile {
+      if isafterendline {
+         cursordown
+         begline
+      } else {
+         if iscurrchar '{' or
+            iscurrchar '(' or
+            iscurrchar '[' or {
+            return
+         }
+         cursorright
+      }
+   }
+   gotoprevpos
+   message 'No other braces'
+}
+
+#&f5 {
+   addline begline
+   '----------------'
+   dupline begline backspace
+   dupline begline backspace
+   dupline begline '\' endline '*/'
+   cursorup begline '/*' endline '\'
+   cursordown addline begline '|'
+}
+
+
+f7 { find }
+#&f7 { repeat }
+^f7 {
+   if markword {
+      copy unmarkblock
+      find paste
+      tabrt
+      return
+   }
+   message 'no word there'
+}
+@f7 {
+   if markword {
+      copy unmarkblock
+      find paste
+      enter
+      return
+   }
+   message 'no word there'
+}
+
+f8 { gotoline }
+^f8 {
+   if markword {
+      copy unmarkblock
+      findreplace paste
+      return
+   }
+   message 'no word there'
+}
+
+f9 {
+   if not saveall {
+      callback "save_failed"
+      return
+   }
+   callback "compile"
+}
+
+@cursorleft {
+   callback "prev_err"
+}
+
+@cursorright {
+   callback "next_err"
+}
+
+f2 { callback "errors" }
+
+f10 { mainmenu }
+
+f11 {
+   if not isspace {
+      if cursorleft {
+         if not isspace {
+            cursorright
+            beep return
+         }
+         cursorright
+      }
+   }
+   if isafterendline { endline delch return }
+   while cursorleft and isspace {
+      delch
+   }
+   if not isbegline { cursorright }
+   while isspace and not isendline {
+      delch
+   }
+   if not isbegline { ' ' }
+}
+
+#^&cursorup { prevwindow }
+#^&cursordown { nextwindow }
+
+tab {
+   if not iscursorinblock or not tabblockrt { tabrt }
+}
+
+&#tab {
+   if not iscursorinblock or not tabblocklt { tablt }
+}
+
+!&}  {
+   tablt '}'
+}
+
+
+^del {                 ; delete word / char
+   if not deleteblock {
+      markword
+      if not deleteblock {
+         delch
+      } else {
+         message 'word deleted'
+      }
+   } else {
+      message 'block deleted'
+   }
+}
+
+#&del  {
+   if iscursorinblock or IsCUABlock {
+      cut
+   } else {
+      if markword {
+         cut
+      }
+   }
+}
+
+^ins  {
+   if isblock {
+      copy
+      message 'block coppied'
+   } else {
+      if markword {
+         copy
+         message 'word coppied'
+      }
+   }
+   unmarkblock
+}
+
+&#ins  {
+   paste
+   gotoblockend
+   unmarkblock
+}
+
+@.    '->'
+
+^[    '/*'
+^]    '*/'
+^/    '//'
+^-    '--'
+^=    '++'
+^7    '&&'
+^1    '!='
+^\    '||'
+^;    '::'
+^9    '()'
+^'    { '""' cursorleft }
+^,    '<<'
+^.    '>>'
+
+^@9   { '();' cursorleft cursorleft }
+
+@/    { deltoeol }
+@;    { deltoeol ';' }
+
+grey+ {
+   unmarkblock
+   markline
+   copy
+   unmarkblock
+   message 'line copy'
+}
+grey- {
+   unmarkblock
+   markline
+   cut
+   message 'line cut'
+}
+grey* {
+   paste
+   unmarkblock
+}
+
+
+enter {                                ;c++ indent style
+   if isfilereadonly {
+      return
+   }
+   splitline
+   endline
+   if not isbegline {
+      cursorleft
+      if iscurrchar '{' {
+         begline
+         while not isendline and isspace {
+            cursordown ' ' cursorup
+         }
+         cursordown tabrt
+         return
+      }
+      begline
+      while not isendline and isspace {
+         cursordown ' ' cursorup
+      }
+      cursordown
+      return
+   }
+   cursordown
+}
+
+^enter {                                ;c++ indent style
+   endline
+   splitline
+   if not isbegline {
+      cursorleft
+      if iscurrchar '{' {
+         firstnonwhite
+         cursordown tabrt
+         return
+      }
+      firstnonwhite
+   }
+   cursordown
+}
+
+@backspace {
+   backspace
+   backspace
+}
+
+@del {
+   delch
+   delch
+}
+
+@` {
+   ' '
+   if markword {
+      deleteblock
+      backspace
+   } else {
+      undo
+      Message 'No word!'
+   }
+}
+
+@7 { if markword { Upper unmarkblock } }
+@8 { if markword { lower unmarkblock } }
+@9 { if markword { flip unmarkblock } }
+
+
+@enter {                                   ;template expansion
+   if cursorleft {
+      if not isspace {
+         unmarkblock markcolumn
+                                          ;at least 2 chars for testing
+         if cursorleft {
+            if not isspace {
+                                          ;expand till space
+               while not isbegline and not isspace { cursorleft }
+               if isspace { cursorright }
+
+               if isareapartof 'while' {
+                                       ; WHILE expansion
+                  deleteblock splitline
+                  'while(){'
+                  begline cursordown if not isendline { addline }
+                  cursorup firstnonwhite cursordown '}'
+                  cursorup endline cursorleft cursorleft
+                  return
+               }
+               if isareapartof 'do' {
+                                       ; DO expansion
+                  deleteblock splitline
+                  'do{'
+                  begline cursordown if not isendline { addline }
+                  cursorup firstnonwhite cursordown '}while();'
+                  cursorleft cursorleft
+                  return
+               }
+               if isareapartof 'if' {
+                                       ; IF expansion
+                  deleteblock splitline
+                  'if(){'
+                  begline cursordown if not isendline { addline }
+                  cursorup firstnonwhite cursordown '}'
+                  cursorup endline cursorleft cursorleft
+                  return
+               }
+               if isareapartof 'class' {
+                                       ; CLASS expansion
+                  deleteblock splitline
+                  'class {'
+                  begline cursordown if not isendline { addline }
+                  cursorup firstnonwhite cursordown '};'
+                  addline cursorleft cursorleft 'public:'
+                  cursorup endline cursorleft
+                  return
+               }
+               if isareapartof 'struct' {
+                                       ; STRUCT expansion
+                  deleteblock splitline
+                  'struct {'
+                  begline cursordown if not isendline { addline }
+                  cursorup firstnonwhite cursordown '};'
+                  cursorup endline cursorleft
+                  return
+               }
+               if isareapartof 'case' {
+                                       ; CASE expansion
+                  deleteblock
+                  cursorup firstnonwhite
+                  markword
+                  if isareapartof 'break' {
+                     cursordown { tablt }
+                  } else { cursordown }
+                  unmarkblock
+                  splitline
+                  'case :'
+                  begline cursordown if not isendline { addline }
+                  cursorup firstnonwhite cursordown tabrt 'break;'
+                  cursorup endline cursorleft
+                  return
+               }
+               if isareapartof 'switch' {
+                                       ; SWITCH expansion
+                  deleteblock splitline
+                  'switch(){'
+                  begline cursordown if not isendline { addline }
+                  cursorup firstnonwhite cursordown '}'
+                  cursorup endline cursorleft cursorleft
+                  return
+               }
+               if isareapartof 'for' {
+                                       ; FOR expansion
+                  deleteblock splitline
+                  'for(){'
+                  begline cursordown if not isendline { addline }
+                  cursorup firstnonwhite cursordown '}'
+                  cursorup endline cursorleft cursorleft
+                  return
+               }
+               if isareapartof 'fi' {
+                                       ; FOR expansion
+                  deleteblock splitline
+                  'for(i=0; i<; i++){'
+                  begline cursordown if not isendline { addline }
+                  cursorup firstnonwhite cursordown '}'
+                  cursorup endline wordleft cursorleft cursorleft
+                  return
+               }
+               if isareapartof '#in' {
+                                       ; #INCLUDE expansion
+                  deleteblock splitline
+                  '#include <>' cursorleft
+                  return
+               }
+               if isareapartof '#if' {
+                                       ; #IF expansion
+                  deleteblock splitline
+                  '#ifdef ' cursorleft
+                  return
+               }
+               if isareapartof 'enum' {
+                                       ; ENUM expansion
+                  deleteblock splitline
+                  'enum {'
+                  begline cursordown if not isendline { addline }
+                  cursorup firstnonwhite cursordown '};'
+                  cursorup endline cursorleft
+                  return
+               }
+               if isareapartof 'template' {
+                                       ; TEMPLATE expansion
+                  deleteblock
+                  'template <>' cursorleft
+                  return
+               }
+
+               if isareapartof 'gb' {     ;GameBegin function
+                  deleteblock splitline
+                  'void GameBegin(){'
+                  begline addline addline cursordown cursordown '}' cursorup tabrt
+                  return
+               }
+               if isareapartof 'ge' {     ;GameEnd function
+                  deleteblock splitline
+                  'void GameEnd(){'
+                  begline addline addline cursordown cursordown '}' cursorup tabrt
+                  return
+               }
+               if isareapartof 'onh' {     ;OnHit function
+                  deleteblock splitline
+                  'void OnHit(){'
+                  begline addline addline cursordown cursordown '}' cursorup tabrt
+                  return
+               }
+               if isareapartof 'onu' {     ;OnUse function
+                  deleteblock splitline
+                  'void OnUse(){'
+                  begline addline addline cursordown cursordown '}' cursorup tabrt
+                  return
+               }
+               if isareapartof 'ond' {     ;OnDestroy function
+                  deleteblock splitline
+                  'void OnDestroy(){'
+                  begline addline addline cursordown cursordown '}' cursorup tabrt
+                  return
+               }
+               if isareapartof 'onc' {     ;OnCollision function
+                  deleteblock splitline
+                  'bool OnCollision(){'
+                  begline addline addline cursordown cursordown '}' cursorup tabrt
+                  'return true;' firstnonwhite insertline
+                  return
+               }
+               if isareapartof 'ons' {     ;OnSignal function
+                  deleteblock splitline
+                  'void OnSignal(int id){'
+                  begline addline addline cursordown cursordown '}' cursorup tabrt
+                  return
+               }
+               if isareapartof 'onn' {     ;OnNote function
+                  deleteblock splitline
+                  'void OnNote(int id){'
+                  begline addline addline cursordown cursordown '}' cursorup tabrt
+                  return
+               }
+
+               if isareapartof 'oni' {     ;OnIdle function
+                  deleteblock splitline
+                  'void OnIdle(){'
+                  begline addline addline cursordown cursordown '}' cursorup tabrt
+                  return
+               }
+
+               gotoblockend
+            } else {
+               cursorright
+            }
+         }
+         unmarkblock
+      }
+      cursorright
+   }
+   message 'no template'
+}
+
+!^f3 {                                  ; find match
+   if isbrace {
+      if not match {
+         message 'No matching brace'
+      }
+      return
+   }
+   cursorright
+   while not isendfile {
+      if isafterendline {
+         cursordown
+         begline
+      } else {
+         if iscurrchar '{' or
+            iscurrchar '(' or
+            iscurrchar '[' or
+            iscurrchar '}' or
+            iscurrchar ')' or
+            iscurrchar ']' or {
+            return
+         }
+         cursorright
+      }
+   }
+   gotoprevpos
+   message 'No other braces'
+}
+
+f6 { maximizewindow }
+f5 { restorewindow }
+

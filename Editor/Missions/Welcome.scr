@@ -1,0 +1,9 @@
+ 
+table "Mission info"{
+   string str "Text"(240);
+}
+
+void Main(){
+   if(str)
+      LogS(str);
+}

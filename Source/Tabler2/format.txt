@@ -1,0 +1,42 @@
+Table file format:
+
+offset      size               type        description
+   0x00     4                 dword       ID (0x4c424154 or 'TABL')
+   0x04     4                 bool        lock (currently not used)
+   0x08     4                 dword       number_of_items
+   0x0c     4                 dword       data_size
+   0x10     4                 dword       flags:
+                                          HDRFLAGS_COMPRESS = 1 (compressed data)
+   0x14     4                 dword       reserved (currently 0)
+   0x18     16                GUID        table identifier
+   0x28  (number_of_items*8)  S_item_desc item descriptors
+      ?     data_size         ?           data
+
+//-------------------------------------
+
+Structures:
+
+struct S_item_desc:
+offset      size               type        description
+   0x00     4                 dword       item offset in data
+   0x04     1                 enum        item type
+   0x05     1                 byte        max_string_size (valid for strings)
+   0x06     2                 word        array_size (0 if item is not array)
+
+//-------------------------------------
+
+Enums:
+
+enum E_TABLE_ELEMENT_TYPE{
+   TE_NULL,                   //not valid item type
+                              //basic types
+   TE_BOOL,
+   TE_INT,
+   TE_FLOAT,
+   TE_ENUM,
+   TE_STRING,
+   TE_COLOR_RGB,              //byte[3]   (0 - 255)
+   TE_COLOR_VECTOR,           //float[3]  (0.0 - 1.0)
+};
+
+//-------------------------------------

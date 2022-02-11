@@ -1,0 +1,12 @@
+; Procedural for morphing 3D vertex.
+
+Class MORPH_3D
+
+;----------------------------
+
+scale .2 .1 .1
+
+time 400 700
+
+; number of separate channels
+num_channels 4

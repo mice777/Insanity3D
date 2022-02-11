@@ -1,0 +1,79 @@
+; Translation notes:
+; - Do not translate lines starting with ';', translate only numbered lines.
+; - Keep texts short, otherwise they won't fit into their space. Above each text is a meter how long text may be, you should fit into it.
+; - Keep quotes at beginning and end of text.
+; - You may use one ampersand (&) in each line, which is used for keyboard shortcut when navigating among controls.
+
+
+;  Name of current display adapter installed in computer.
+;  |-------------------|
+1  "&Grafikkarte:"
+
+;  3D device used for rendering (combobox).
+;  |----------------------------|
+2  "&3D-Grafikkarte:"
+
+;  Resolution in which player wishes to play (combobox).
+;  |----------------------------|
+3  "&Auflösung:"
+
+;  Display bit depth in which player wishes to play (combobox).
+;  |----------------------------|
+4  "Farbtiefe (&Bit):"
+
+;  Ok button.
+;  |-----------|
+5  "&O.K."
+
+;  Cancel button.
+;  |-----------|
+6  "&Abbrechen"
+
+;  Apply button.
+;  |-----------|
+7  "&Übernehmen"
+
+;  Group box of settings.
+;  |-------------------|
+8  "&Einstellungen"
+
+;  Enable full-screen mode (checkbox).
+;  |------------------------|
+9  "&Vollbild"
+
+;  Enable tripple buffering (checkbox).
+;  |------------------------|
+10 "&Triple-Buffering"
+
+;  Enable sounds (checkbox).
+;  |------------------------|
+11 "&Sound aktivieren"
+
+;  Enable compressed textures (checkbox).
+;  |------------------------|
+12 "Komprimierte Te&xturen"
+
+;  Use special database for caching (checkbox).
+;  |------------------------|
+13 "Benutze &Datenbank"
+
+;  Group box for texture filtering mode.
+;  |------------------------|
+14 "Texturen-&Filter"
+
+;  Use linear filtering (radio button).
+;  |------------------------|
+15 "&Linear"
+
+;  Use anisotropic filtering (radio button).
+;  |------------------------|
+16 "A&nisotropisch"
+
+; Antialiasing modes
+;  |--------------------|
+20 "Antialiasing"
+21 "No"
+22 "Simple"
+23 "Best"
+
+

@@ -1,0 +1,25 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IEditor", "IEditor.vcproj", "{9138BBB5-83D6-4BDB-840F-7935F442D15C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IEditor DLL", "IEditor_dll.vcproj", "{16DB4E3C-4213-435A-9513-866C3F44DDCF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9138BBB5-83D6-4BDB-840F-7935F442D15C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9138BBB5-83D6-4BDB-840F-7935F442D15C}.Debug|Win32.Build.0 = Debug|Win32
+		{9138BBB5-83D6-4BDB-840F-7935F442D15C}.Release|Win32.ActiveCfg = Release|Win32
+		{9138BBB5-83D6-4BDB-840F-7935F442D15C}.Release|Win32.Build.0 = Release|Win32
+		{16DB4E3C-4213-435A-9513-866C3F44DDCF}.Debug|Win32.ActiveCfg = Release|Win32
+		{16DB4E3C-4213-435A-9513-866C3F44DDCF}.Debug|Win32.Build.0 = Release|Win32
+		{16DB4E3C-4213-435A-9513-866C3F44DDCF}.Release|Win32.ActiveCfg = Release|Win32
+		{16DB4E3C-4213-435A-9513-866C3F44DDCF}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
