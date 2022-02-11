@@ -10,7 +10,7 @@ It's not maintained since 2004, but it still shows some nice techniques: physics
 This was used in a real PC game!
 
 This project can be compiled under Microsoft Visual Studio 2008  
-It contains also compiled binaries, so it can be run directly without compilation (run *Editor\Bin\test.exe*) Use *Menu>File>Open mission* to load different screnes.
+It contains also compiled binaries, so it can be run directly without compilation (run *Editor\Bin\test.exe*) Use *Menu>File>Open mission* to load different scenes.
 
 It runs under Windows (XP up to Windows 11, and maybe newer)
 
