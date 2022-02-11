@@ -4,10 +4,14 @@
 
 ![Image](Docs/img1.png)
 
+This engine was used for PC game *Hidden and Dangerous*
+
 This project can be compiled under Microsoft Visual Studio 2008  
-It contains also compiled binaries, so it can be run directly without compilation.
+It contains also compiled binaries, so it can be run directly without compilation (run *Editor\Bin\test.exe*) Use *Menu>File>Open mission* to load different screnes.
 
 It runs under Windows (XP up to Windows 11, and maybe newer)
+
+
 
 Structure of the project:
 
