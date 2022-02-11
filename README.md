@@ -6,7 +6,7 @@
 
 This engine was used for PC game *Hidden and Dangerous*
 
-It's not maintained since 2004, but it still shows some nice techniques: physics, sectors+portals, occluders, dump/detail/light/environment -mapping, human animations, BSP tree, collisions, rain, snow, level-of-detail, particles, scripting, shadows, etc.  
+It's not maintained since 2004, but it still shows some nice techniques: physics, sectors+portals, occluders, bump/detail/light/environment -mapping, human animations, BSP tree, collisions, rain, snow, level-of-detail, particles, scripting, shadows, etc.  
 This was used in a real PC game!
 
 This project can be compiled under Microsoft Visual Studio 2008  
